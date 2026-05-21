@@ -141,6 +141,16 @@
     .proj__tags span { font-size: 0.74rem; padding: 4px 10px; border-radius: 2px; background: var(--paper); border: 1px solid var(--line-2); color: var(--ink-3); }
     .proj__more { margin-top: auto; padding-top: 16px; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
 
+    /* Filters */
+    .filters { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+    .filter-group { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+    .filter-label { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); width: 44px; flex-shrink: 0; }
+    .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { font-family: inherit; font-size: 0.85rem; font-weight: 500; padding: 7px 14px; border: 1px solid var(--line-2); border-radius: 2px; background: var(--paper-2); color: var(--ink-2); cursor: pointer; transition: background 0.18s, border-color 0.18s, color 0.18s; }
+    .chip:hover { border-color: var(--ink); color: var(--ink); }
+    .chip.is-active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .proj-empty { text-align: center; color: var(--ink-3); padding: 50px 0; }
+
     /* Modal */
     .modal { position: fixed; inset: 0; z-index: 200; display: none; }
     .modal.open { display: block; }
@@ -518,9 +528,11 @@
       <div class="section__head reveal">
         <span class="section__tag">Works</span>
         <h2 class="section__title">대표 프로젝트</h2>
-        <p class="section__sub">카드를 클릭하면 상세 설명과 실제 화면을 볼 수 있습니다</p>
+        <p class="section__sub">회사·언어로 필터링하고, 카드를 클릭하면 상세 화면을 볼 수 있습니다</p>
       </div>
+      <div class="filters reveal" id="projFilters"></div>
       <div class="projects" id="projGrid"></div>
+      <p class="proj-empty" id="projEmpty" hidden>해당 조건의 프로젝트가 없습니다.</p>
     </section>
 
     <!-- Education / Certs -->
@@ -599,67 +611,67 @@
   <script>
     // ---- Project data ----
     const PROJECTS = [
-      { title: '게임잡 (GameJob)', company: '웍스피어 · 2023~', tags: ['Flutter', 'Dart', 'Riverpod'],
+      { title: '게임잡 (GameJob)', companyName: '웍스피어', langs: ['Flutter'], company: '웍스피어 · 2023~', tags: ['Flutter', 'Dart', 'Riverpod'],
         summary: 'Flutter 기반 게임 업계 특화 채용 플랫폼 신규 개발·운영.',
         details: [
           'Flutter + Riverpod로 게임 업계 특화 채용 앱을 신규 개발.',
           '출시 후 사용자 피드백 반영, 신규 기능 추가 및 지속적인 성능 최적화.',
           '운영 이슈 모니터링과 신속한 장애 대응.'
         ], images: ['gamejob-1'] },
-      { title: '잡코리아 채용 앱 (Compose · 검색)', company: '웍스피어 · 2023~', tags: ['Compose', 'Kotlin', 'Flutter'],
+      { title: '잡코리아 채용 앱 (Compose · 검색)', companyName: '웍스피어', langs: ['Kotlin', 'Compose', 'Flutter'], company: '웍스피어 · 2023~', tags: ['Compose', 'Kotlin', 'Flutter'],
         summary: '기존 View 시스템 → Jetpack Compose 신규 전환, 검색 영역 Flutter 리뉴얼.',
         details: [
           '기존 View 시스템을 Jetpack Compose로 신규 전환하고 AI 추천 기능 구현.',
           'Flutter 리뉴얼에서 검색 영역을 신규 개발하며 기존 네이티브 코드를 마이그레이션.',
           '채용 서비스 핵심 기능 개발 및 사용자 편의성 향상.'
         ], images: ['jobkorea-1', 'jobkorea-2'] },
-      { title: '알바몬 앱 (Android · iOS)', company: '웍스피어 · 진행 중', tags: ['Kotlin', 'Swift', 'iOS'],
+      { title: '알바몬 앱 (Android · iOS)', companyName: '웍스피어', langs: ['Kotlin', 'Swift'], company: '웍스피어 · 진행 중', tags: ['Kotlin', 'Swift', 'iOS'],
         summary: '알바몬 채용 서비스 담당. Android·iOS 양 플랫폼 기능 개선 진행 중.',
         details: [
           '알바몬 앱 Android·iOS 담당.',
           '양 플랫폼 기능 수정·개선 및 신규 개발 진행 중.'
         ], images: ['albamon-1'] },
-      { title: '사내 앱스토어', company: '풀무원 · 2022~2023', tags: ['Flutter', 'Firebase', 'Serverless'],
+      { title: '사내 앱스토어', companyName: '풀무원', langs: ['Flutter'], company: '풀무원 · 2022~2023', tags: ['Flutter', 'Firebase', 'Serverless'],
         summary: '서버 없이 Firebase만으로 만든 크로스플랫폼 사내 앱스토어. 전 직원 사용.',
         details: [
           '서버 지원 없이 Firebase Realtime DB·Storage만으로 크로스플랫폼 사내 앱스토어를 직접 구상·제안·개발.',
           '앱 다운로드·설치·업데이트 프로세스를 자동화하여 운영 효율화.',
           '풀무원 지주사 및 계열사 전 직원이 사용 중.'
         ], images: ['appstore-1', 'appstore-2', 'appstore-3'] },
-      { title: 'GS Shop · GS Fresh', company: 'GS ITM · 2018~2022 (파트 리더)', tags: ['Kotlin', 'Java', 'Flutter'],
+      { title: 'GS Shop · GS Fresh', companyName: 'GS ITM', langs: ['Kotlin', 'Java', 'Flutter'], company: 'GS ITM · 2018~2022 (파트 리더)', tags: ['Kotlin', 'Java', 'Flutter'],
         summary: 'GS Shop Android 앱 운영 리더 + GS Fresh Flutter 전환 파트 리더.',
         details: [
           'GS Shop Android 앱 운영 파트 리더 — 코틀린 전환, RESTful 통신 기반 매장 배너 Flexible 노출 설계.',
           'GS Fresh Flutter 신규 개발 파트 리더 — 하이브리드 앱을 Flutter로 컨버전, 회원정보 마이그레이션·외부 라이브러리 채널링.',
           '장애 사전 인지·원인 제거 중심의 안정 운영.'
         ], images: ['gsshop-1', 'gsshop-2', 'gsshop-3'] },
-      { title: '멀티 플랫폼 푸시 SDK', company: '휴머스온 · 2017~2018', tags: ['Java', 'Objective-C', 'SDK'],
+      { title: '멀티 플랫폼 푸시 SDK', companyName: '휴머스온', langs: ['Java', 'Objective-C'], company: '휴머스온 · 2017~2018', tags: ['Java', 'Objective-C', 'SDK'],
         summary: 'GCM·FCM·Baidu·APNS·Private 서버를 아우르는 Android·iOS 푸시 수신 SDK.',
         details: [
           'GCM·FCM·Baidu·APNS·Private 서버 푸시를 모두 대응하는 수신 SDK 개발.',
           '고객사별 커스텀 디스플레이(영상·이미지 팝업) 제공.',
           '푸시 메시지 DB 저장 및 고객 요구 기반 Query 조회 기능 제공.'
         ], images: [] },
-      { title: '홍채인식 SDK', company: '아이리스아이디 · 2016~2017', tags: ['Java', 'JNI/NDK', 'Security'],
+      { title: '홍채인식 SDK', companyName: '아이리스아이디', langs: ['Java', 'C/C++'], company: '아이리스아이디 · 2016~2017', tags: ['Java', 'JNI/NDK', 'Security'],
         summary: '홍채인식 기기 USB 연동 Android SDK. 1:1 / 1:N 매칭, SSL 보안 DB.',
         details: [
           '홍채인식 기기와 USB 통신으로 라이브 영상·눈 이미지를 캡쳐.',
           '홍채 1:1 / 1:N 매칭 결과 제공.',
           '사용자·홍채 데이터 DB 구축 및 SSL 통신 기반 보안.'
         ], images: ['iris-1', 'iris-2'] },
-      { title: '유라이브 블랙박스 뷰어', company: '나다텔 · 2014~2016', tags: ['Android', 'iOS', 'C++'],
+      { title: '유라이브 블랙박스 뷰어', companyName: '나다텔', langs: ['Java', 'Objective-C', 'C/C++'], company: '나다텔 · 2014~2016', tags: ['Android', 'iOS', 'C++'],
         summary: '블랙박스 Wifi 연동 앱(Android·iOS) + 2/4채널 PC Viewer.',
         details: [
           '유라이브 블랙박스 Wifi 연동 앱 — 실시간 감시, 원격 검색·설정·SD 포맷·펌웨어 업그레이드.',
           '2채널·4채널 PC Viewer(C++) — 영상 재생, GPS 정보 기반 지도 위치 표기, 자동 업데이트.'
         ], images: ['blackbox-1', 'blackbox-2', 'blackbox-3'] },
-      { title: '농촌진흥청 · 사랑의 교회 앱', company: '프리랜서 · 2013~2014', tags: ['Android', 'iOS', 'Hybrid'],
+      { title: '농촌진흥청 · 사랑의 교회 앱', companyName: '프리랜서', langs: ['Java', 'Objective-C'], company: '프리랜서 · 2013~2014', tags: ['Android', 'iOS', 'Hybrid'],
         summary: '농촌진흥청 하이브리드 앱과 사랑의 교회 iOS 앱 개발.',
         details: [
           '농촌진흥청 — 야콘 요리법·웰빙레시피 하이브리드 앱, 웹에서 등록한 레시피 연동.',
           '사랑의 교회 iOS — 트위터 연동, 영상·음성 재생, 월별 일정 서버 연동.'
         ], images: ['freelance-1', 'freelance-2', 'freelance-3', 'freelance-4'] },
-      { title: '초기 커리어 — LG · 삼성 · SKT', company: '디자인정글 · 파인원 · 2009~2013', tags: ['Java', 'Flash AS', 'JNI'],
+      { title: '초기 커리어 — LG · 삼성 · SKT', companyName: '디자인정글·파인원', langs: ['Java', 'Flash'], company: '디자인정글 · 파인원 · 2009~2013', tags: ['Java', 'Flash AS', 'JNI'],
         summary: 'LG Call/Google TV, 삼성 Flash Mobile, SKT SoundCode, LG tvG 등 피처폰·IPTV 시대 다수 프로젝트.',
         details: [
           'LG 국내·북미·유럽향 Call / FMC Call / Call Settings, LG Google TV Launcher 신규 개발.',
@@ -687,6 +699,45 @@
         </div>
       </article>`;
     }).join('');
+
+    // ---- Filters (company / language) ----
+    const COMPANIES = [...new Set(PROJECTS.map((p) => p.companyName))];
+    const LANGS = ['Flutter', 'Kotlin', 'Compose', 'Swift', 'Java', 'Objective-C', 'C/C++', 'Flash'];
+    const filters = document.getElementById('projFilters');
+    const empty = document.getElementById('projEmpty');
+    let fCompany = 'all', fLang = 'all';
+
+    const groupHTML = (label, group, vals) => `
+      <div class="filter-group">
+        <span class="filter-label">${label}</span>
+        <div class="filter-chips" data-group="${group}">
+          <button class="chip is-active" data-val="all">전체</button>
+          ${vals.map((v) => `<button class="chip" data-val="${v}">${v}</button>`).join('')}
+        </div>
+      </div>`;
+    filters.innerHTML = groupHTML('회사', 'company', COMPANIES) + groupHTML('언어', 'lang', LANGS);
+
+    const applyFilter = () => {
+      let shown = 0;
+      grid.querySelectorAll('.proj').forEach((card) => {
+        const p = PROJECTS[+card.dataset.idx];
+        const ok = (fCompany === 'all' || p.companyName === fCompany) && (fLang === 'all' || p.langs.includes(fLang));
+        card.style.display = ok ? '' : 'none';
+        if (ok) { card.classList.add('in'); shown++; }
+      });
+      empty.hidden = shown > 0;
+    };
+    filters.querySelectorAll('.filter-chips').forEach((box) => {
+      box.addEventListener('click', (e) => {
+        const btn = e.target.closest('.chip');
+        if (!btn) return;
+        box.querySelectorAll('.chip').forEach((c) => c.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        if (box.dataset.group === 'company') fCompany = btn.dataset.val;
+        else fLang = btn.dataset.val;
+        applyFilter();
+      });
+    });
 
     // Modal
     const modal = document.getElementById('projModal');
