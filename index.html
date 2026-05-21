@@ -76,17 +76,23 @@
     .stat__num { font-family: var(--serif); font-size: 2.4rem; font-weight: 700; line-height: 1; color: var(--ink); }
     .stat__label { font-size: 0.82rem; color: var(--ink-3); margin-top: 8px; letter-spacing: 0.02em; }
 
-    /* Hero profile card */
-    .hero__card { background: var(--paper-2); border: 1px solid var(--line); border-radius: 16px; padding: 26px; box-shadow: 0 30px 60px -34px rgba(40, 30, 20, 0.45); max-width: 360px; width: 100%; margin: 0 auto; }
-    .hero__card-head { display: flex; gap: 16px; align-items: center; }
-    .hero__card-photo { width: 88px; flex-shrink: 0; border-radius: 8px; border: 1px solid var(--line-2); display: block; }
-    .hero__card-name { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.01em; }
-    .hero__card-name span { display: block; font-weight: 500; font-size: 0.8rem; color: var(--ink-3); letter-spacing: 0.02em; margin-top: 3px; }
-    .hero__card-role { color: var(--accent); font-weight: 600; font-size: 0.9rem; margin-top: 8px; }
-    .hero__card-facts { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 11px; }
-    .hero__card-facts > div { display: flex; gap: 12px; font-size: 0.9rem; }
-    .hero__card-facts dt { width: 50px; flex-shrink: 0; color: var(--ink-3); font-weight: 600; }
-    .hero__card-facts dd { color: var(--ink); }
+    /* Hero device mockup */
+    .hero__device { display: flex; justify-content: center; }
+    .phone { position: relative; width: 270px; border-radius: 42px; background: #1c1a17; padding: 13px; box-shadow: 0 40px 70px -32px rgba(40, 30, 20, 0.55); animation: floaty 6s ease-in-out infinite; }
+    @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .phone__notch { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 84px; height: 20px; background: #1c1a17; border-radius: 0 0 13px 13px; z-index: 2; }
+    .phone__screen { background: var(--paper-2); border-radius: 30px; padding: 34px 18px 22px; }
+    .phone__statusbar { display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--ink-3); margin-bottom: 18px; }
+    .phone__profile { display: flex; align-items: center; gap: 11px; margin-bottom: 18px; }
+    .phone__profile img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; object-position: top center; border: 1px solid var(--line-2); }
+    .phone__profile strong { display: block; font-size: 0.96rem; }
+    .phone__profile small { font-size: 0.72rem; color: var(--ink-3); }
+    .phone__chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+    .phone__chips span { font-size: 0.73rem; font-weight: 600; padding: 5px 11px; border-radius: 100px; background: var(--accent-soft); color: var(--accent); }
+    .phone__cards { display: flex; flex-direction: column; gap: 11px; }
+    .phone__card { padding: 13px 15px; border-radius: 12px; border: 1px solid var(--line); border-left: 3px solid var(--brand, #ccc); background: var(--paper); display: flex; flex-direction: column; gap: 3px; }
+    .phone__card strong { font-size: 0.92rem; color: var(--ink); }
+    .phone__card small { font-size: 0.73rem; color: var(--ink-3); }
 
     /* Sections */
     .section { max-width: var(--maxw); margin: 0 auto; padding: 90px clamp(20px, 5vw, 40px); }
@@ -219,7 +225,7 @@
     /* Responsive */
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; text-align: center; padding-top: 120px; gap: 40px; }
-      .hero__card { text-align: left; margin: 8px auto 0; }
+      .hero__device { order: -1; }
       .hero__badge { border-bottom: 0; padding-bottom: 0; }
       .hero__cta { justify-content: center; }
       .hero__desc { margin-left: auto; margin-right: auto; }
@@ -295,23 +301,29 @@
         </div>
       </div>
 
-      <aside class="hero__card reveal">
-        <div class="hero__card-head">
-          <img class="hero__card-photo" src="images/profile.jpg" alt="임희강 프로필 사진" />
-          <div>
-            <p class="hero__card-name">임희강 <span>Lim Heekang</span></p>
-            <p class="hero__card-role">모바일 앱 개발자</p>
+      <div class="hero__device reveal">
+        <div class="phone">
+          <div class="phone__notch"></div>
+          <div class="phone__screen">
+            <div class="phone__statusbar"><span>9:41</span><span>● ▮ ⌃</span></div>
+            <div class="phone__profile">
+              <img src="images/profile.jpg" alt="임희강" />
+              <div>
+                <strong>임희강</strong>
+                <small>모바일 앱 개발자 · 17년</small>
+              </div>
+            </div>
+            <div class="phone__chips">
+              <span>Kotlin</span><span>Flutter</span><span>Compose</span><span>Swift</span><span>Java</span>
+            </div>
+            <div class="phone__cards">
+              <div class="phone__card" style="--brand:#2b6fe3"><strong>JobKorea</strong><small>채용 서비스 앱 개발</small></div>
+              <div class="phone__card" style="--brand:#0fa3a8"><strong>GameJob</strong><small>게임 업계 특화 채용</small></div>
+              <div class="phone__card" style="--brand:#ff7a00"><strong>Albamon</strong><small>Android · iOS 개발</small></div>
+            </div>
           </div>
         </div>
-        <dl class="hero__card-facts">
-          <div><dt>경력</dt><dd>17년 · 2009~현재</dd></div>
-          <div><dt>현직</dt><dd>웍스피어 (잡코리아·알바몬)</dd></div>
-          <div><dt>주력</dt><dd>Flutter · Kotlin · Jetpack Compose</dd></div>
-          <div><dt>플랫폼</dt><dd>Android · iOS · Cross-Platform</dd></div>
-          <div><dt>어학</dt><dd>일본어 JLPT 2급</dd></div>
-          <div><dt>위치</dt><dd>서울 서초구</dd></div>
-        </dl>
-      </aside>
+      </div>
     </section>
 
     <!-- About -->
