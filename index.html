@@ -84,7 +84,7 @@
     .phone__screen { background: var(--paper-2); border-radius: 30px; padding: 34px 18px 22px; }
     .phone__statusbar { display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--ink-3); margin-bottom: 18px; }
     .phone__profile { display: flex; align-items: center; gap: 11px; margin-bottom: 18px; }
-    .phone__profile img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; object-position: top center; border: 1px solid var(--line-2); }
+    .phone__profile img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: top center; border: 1px solid var(--line-2); }
     .phone__profile strong { display: block; font-size: 0.96rem; }
     .phone__profile small { font-size: 0.72rem; color: var(--ink-3); }
     .phone__chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
@@ -142,6 +142,8 @@
     .proj:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .proj__media { height: 150px; display: flex; align-items: center; justify-content: center; background: var(--brand, #333); border-bottom: 1px solid var(--line); padding: 0 18px; }
     .proj__wordmark { font-weight: 800; font-size: 1.5rem; letter-spacing: 0.01em; color: #fff; text-align: center; line-height: 1.2; }
+    .proj__media--logo { background: #fff; padding: 26px; }
+    .proj__media--logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
     .proj__body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
     .proj h3 { font-family: var(--serif); font-size: 1.12rem; font-weight: 700; }
     .proj__co { font-size: 0.78rem; color: var(--accent); margin: 5px 0 12px; letter-spacing: 0.02em; }
@@ -185,6 +187,8 @@
     .car-btn:disabled { opacity: 0; pointer-events: none; }
     .car-count { text-align: center; margin-top: 14px; font-size: 0.84rem; color: var(--ink-3); letter-spacing: 0.04em; }
     .modal__note { color: var(--ink-3); font-size: 0.9rem; font-style: italic; }
+    .modal__logo { display: flex; justify-content: center; padding: 34px; background: #fff; border: 1px solid var(--line-2); border-radius: 10px; }
+    .modal__logo img { max-width: 78%; max-height: 130px; object-fit: contain; }
 
     /* Image lightbox */
     .imgview { position: fixed; inset: 0; z-index: 300; display: none; align-items: center; justify-content: center; background: rgba(20, 16, 12, 0.92); cursor: zoom-out; padding: 24px; }
@@ -678,14 +682,14 @@
           'GS Fresh Flutter 신규 개발 파트 리더 — 하이브리드 앱을 Flutter로 컨버전, 회원정보 마이그레이션·외부 라이브러리 채널링.',
           '장애 사전 인지·원인 제거 중심의 안정 운영.'
         ], images: ['gsshop-1', 'gsshop-2', 'gsshop-3'] },
-      { title: '멀티 플랫폼 푸시 SDK', brand: 'HUMUSON', brandColor: '#3949ab', companyName: '휴머스온', langs: ['Java', 'Objective-C'], company: '휴머스온 · 2017~2018', tags: ['Java', 'Objective-C', 'SDK'],
+      { title: '멀티 플랫폼 푸시 SDK', brand: 'HUMUSON', brandColor: '#3949ab', logo: 'logo-humuson.jpg', companyName: '휴머스온', langs: ['Java', 'Objective-C'], company: '휴머스온 · 2017~2018', tags: ['Java', 'Objective-C', 'SDK'],
         summary: 'GCM·FCM·Baidu·APNS·Private 서버를 아우르는 Android·iOS 푸시 수신 SDK.',
         details: [
           'GCM·FCM·Baidu·APNS·Private 서버 푸시를 모두 대응하는 수신 SDK 개발.',
           '고객사별 커스텀 디스플레이(영상·이미지 팝업) 제공.',
           '푸시 메시지 DB 저장 및 고객 요구 기반 Query 조회 기능 제공.'
         ], images: [] },
-      { title: '홍채인식 SDK', brand: 'IriTech', brandColor: '#00897b', companyName: '아이리스아이디', langs: ['Java', 'C/C++'], company: '아이리스아이디 · 2016~2017', tags: ['Java', 'JNI/NDK', 'Security'],
+      { title: '홍채인식 SDK', brand: 'IriTech', brandColor: '#00897b', logo: 'logo-irisid.png', companyName: '아이리스아이디', langs: ['Java', 'C/C++'], company: '아이리스아이디 · 2016~2017', tags: ['Java', 'JNI/NDK', 'Security'],
         summary: '홍채인식 기기 USB 연동 Android SDK. 1:1 / 1:N 매칭, SSL 보안 DB.',
         details: [
           '홍채인식 기기와 USB 통신으로 라이브 영상·눈 이미지를 캡쳐.',
@@ -717,7 +721,9 @@
     // Render project cards
     const grid = document.getElementById('projGrid');
     grid.innerHTML = PROJECTS.map((p, i) => {
-      const media = `<div class="proj__media" style="--brand:${p.brandColor}"><span class="proj__wordmark">${p.brand}</span></div>`;
+      const media = p.logo
+        ? `<div class="proj__media proj__media--logo"><img src="images/${p.logo}" alt="${p.companyName} 로고"></div>`
+        : `<div class="proj__media" style="--brand:${p.brandColor}"><span class="proj__wordmark">${p.brand}</span></div>`;
       const tags = p.tags.map((t) => `<span>${t}</span>`).join('');
       return `<article class="proj reveal" data-idx="${i}" tabindex="0" role="button" aria-label="${p.title} 상세 보기">
         ${media}
@@ -806,7 +812,9 @@
       const details = p.details.map((d) => `<li>${d}</li>`).join('');
       let gallery;
       if (!p.images.length) {
-        gallery = '<p class="modal__note">이 프로젝트는 화면 캡처가 제공되지 않습니다.</p>';
+        gallery = p.logo
+          ? `<div class="modal__logo"><img src="images/${p.logo}" alt="${p.companyName} 로고"></div>`
+          : '<p class="modal__note">이 프로젝트는 화면 캡처가 제공되지 않습니다.</p>';
       } else if (p.images.length === 1) {
         gallery = `<div class="modal__carousel"><div class="car-track"><img class="car-img" src="${IMG(p.images[0])}" alt="${p.title} 화면"></div></div>`;
       } else {
