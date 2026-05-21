@@ -6,16 +6,11 @@ Android(Kotlin · Jetpack Compose)와 Flutter 크로스플랫폼을 중심으로
 
 ## 구성
 
-- `index.html` — 단일 페이지 포트폴리오 (소개 · 기술 · 경력 · 프로젝트 · 교육/자격 · 연락처)
-- `assets/css/style.css` — 다크 · 컬러풀 모바일 감성 스타일
-- `assets/js/main.js` — 스크롤 리빌, 카운터 애니메이션, 모바일 내비게이션
+- `index.html` — CSS·JS를 모두 인라인한 **단일 HTML 파일** (소개 · 기술 · 경력 · 프로젝트 · 교육/자격 · 연락처)
 
-## 로컬에서 보기
+## 보기
 
-```bash
-python3 -m http.server 8000
-# 브라우저에서 http://localhost:8000 접속
-```
+`index.html` 파일을 더블클릭해 브라우저에서 바로 열면 됩니다. 별도 서버나 빌드가 필요 없습니다.
 
 ## 배포 (GitHub Pages)
 
