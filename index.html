@@ -149,7 +149,6 @@
     .chip { font-family: inherit; font-size: 0.85rem; font-weight: 500; padding: 7px 14px; border: 1px solid var(--line-2); border-radius: 2px; background: var(--paper-2); color: var(--ink-2); cursor: pointer; transition: background 0.18s, border-color 0.18s, color 0.18s; }
     .chip:hover { border-color: var(--ink); color: var(--ink); }
     .chip.is-active { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .proj-empty { text-align: center; color: var(--ink-3); padding: 50px 0; }
 
     /* Modal */
     .modal { position: fixed; inset: 0; z-index: 200; display: none; }
@@ -167,9 +166,13 @@
     .modal__details { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
     .modal__details li { position: relative; padding-left: 16px; color: var(--ink-2); font-size: 0.96rem; }
     .modal__details li::before { content: "–"; position: absolute; left: 0; color: var(--accent); }
-    .modal__gallery { display: flex; flex-wrap: wrap; gap: 12px; }
-    .modal__gallery img { height: 300px; max-width: 100%; border-radius: 8px; border: 1px solid var(--line-2); cursor: zoom-in; background: var(--paper); transition: transform 0.2s; }
-    .modal__gallery img:hover { transform: translateY(-3px); }
+    .modal__carousel { display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .car-stage { flex: 1 1 auto; display: flex; justify-content: center; min-width: 0; }
+    .car-img { max-height: 380px; max-width: 100%; border-radius: 8px; border: 1px solid var(--line-2); background: var(--paper); cursor: zoom-in; }
+    .car-btn { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line-2); background: var(--paper-2); color: var(--ink); font-size: 1.4rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, opacity 0.2s; }
+    .car-btn:hover:not(:disabled) { border-color: var(--ink); }
+    .car-btn:disabled { opacity: 0.3; cursor: default; }
+    .car-count { text-align: center; margin-top: 12px; font-size: 0.84rem; color: var(--ink-3); letter-spacing: 0.04em; }
     .modal__note { color: var(--ink-3); font-size: 0.9rem; font-style: italic; }
 
     /* Image lightbox */
@@ -238,7 +241,8 @@
       .hero__stats { gap: 26px; }
       .stat__num { font-size: 1.9rem; }
       .tl-card__top { flex-direction: column; }
-      .modal__gallery img { height: auto; width: 100%; }
+      .car-img { max-height: 320px; }
+      .car-btn { width: 34px; height: 34px; font-size: 1.2rem; }
       .modal__panel { margin: 4vh auto; padding: 30px 20px 32px; }
       .about__values li { padding: 0 12px; }
     }
@@ -532,7 +536,6 @@
       </div>
       <div class="filters reveal" id="projFilters"></div>
       <div class="projects" id="projGrid"></div>
-      <p class="proj-empty" id="projEmpty" hidden>해당 조건의 프로젝트가 없습니다.</p>
     </section>
 
     <!-- Education / Certs -->
@@ -700,11 +703,10 @@
       </article>`;
     }).join('');
 
-    // ---- Filters (company / language) ----
+    // ---- Filters (company / language, faceted) ----
     const COMPANIES = [...new Set(PROJECTS.map((p) => p.companyName))];
     const LANGS = ['Flutter', 'Kotlin', 'Compose', 'Swift', 'Java', 'Objective-C', 'C/C++', 'Flash'];
     const filters = document.getElementById('projFilters');
-    const empty = document.getElementById('projEmpty');
     let fCompany = 'all', fLang = 'all';
 
     const groupHTML = (label, group, vals) => `
@@ -717,25 +719,39 @@
       </div>`;
     filters.innerHTML = groupHTML('회사', 'company', COMPANIES) + groupHTML('언어', 'lang', LANGS);
 
-    const applyFilter = () => {
-      let shown = 0;
+    const combo = (c, l) => PROJECTS.some((p) => (c === 'all' || p.companyName === c) && (l === 'all' || p.langs.includes(l)));
+    const setActive = (group, val) => filters.querySelectorAll(`.filter-chips[data-group="${group}"] .chip`).forEach((c) => c.classList.toggle('is-active', c.dataset.val === val));
+
+    const refresh = () => {
+      // hide options that would yield no result given the other group's selection
+      filters.querySelectorAll('.filter-chips[data-group="lang"] .chip').forEach((c) => {
+        c.style.display = (c.dataset.val === 'all' || combo(fCompany, c.dataset.val)) ? '' : 'none';
+      });
+      filters.querySelectorAll('.filter-chips[data-group="company"] .chip').forEach((c) => {
+        c.style.display = (c.dataset.val === 'all' || combo(c.dataset.val, fLang)) ? '' : 'none';
+      });
       grid.querySelectorAll('.proj').forEach((card) => {
         const p = PROJECTS[+card.dataset.idx];
         const ok = (fCompany === 'all' || p.companyName === fCompany) && (fLang === 'all' || p.langs.includes(fLang));
         card.style.display = ok ? '' : 'none';
-        if (ok) { card.classList.add('in'); shown++; }
+        if (ok) card.classList.add('in');
       });
-      empty.hidden = shown > 0;
     };
+
     filters.querySelectorAll('.filter-chips').forEach((box) => {
       box.addEventListener('click', (e) => {
         const btn = e.target.closest('.chip');
         if (!btn) return;
-        box.querySelectorAll('.chip').forEach((c) => c.classList.remove('is-active'));
-        btn.classList.add('is-active');
-        if (box.dataset.group === 'company') fCompany = btn.dataset.val;
-        else fLang = btn.dataset.val;
-        applyFilter();
+        const group = box.dataset.group, val = btn.dataset.val;
+        if (group === 'company') {
+          fCompany = val;
+          if (!combo(fCompany, fLang)) { fLang = 'all'; setActive('lang', 'all'); }
+        } else {
+          fLang = val;
+          if (!combo(fCompany, fLang)) { fCompany = 'all'; setActive('company', 'all'); }
+        }
+        setActive(group, val);
+        refresh();
       });
     });
 
@@ -745,20 +761,46 @@
     const imgview = document.getElementById('imgView');
     const imgviewImg = imgview.querySelector('img');
     let lastFocus = null;
+    let galImages = [], galIdx = 0;
+
+    const renderGallery = () => {
+      const img = modalBody.querySelector('.car-img');
+      if (!img) return;
+      img.src = IMG(galImages[galIdx]);
+      const count = modalBody.querySelector('.car-count');
+      if (count) count.textContent = `${galIdx + 1} / ${galImages.length}`;
+      const prev = modalBody.querySelector('.car-prev');
+      const next = modalBody.querySelector('.car-next');
+      if (prev) prev.disabled = galIdx === 0;
+      if (next) next.disabled = galIdx === galImages.length - 1;
+    };
 
     const openModal = (i) => {
       const p = PROJECTS[i];
       const tags = p.tags.map((t) => `<span>${t}</span>`).join('');
       const details = p.details.map((d) => `<li>${d}</li>`).join('');
-      const gallery = p.images.length
-        ? `<div class="modal__gallery">${p.images.map((n) => `<img loading="lazy" src="${IMG(n)}" alt="${p.title} 화면">`).join('')}</div>`
-        : '<p class="modal__note">이 프로젝트는 화면 캡처가 제공되지 않습니다.</p>';
+      let gallery;
+      if (!p.images.length) {
+        gallery = '<p class="modal__note">이 프로젝트는 화면 캡처가 제공되지 않습니다.</p>';
+      } else if (p.images.length === 1) {
+        gallery = `<div class="modal__carousel"><div class="car-stage"><img class="car-img" src="${IMG(p.images[0])}" alt="${p.title} 화면"></div></div>`;
+      } else {
+        gallery = `<div class="modal__carousel">
+            <button class="car-btn car-prev" aria-label="이전 화면">‹</button>
+            <div class="car-stage"><img class="car-img" src="${IMG(p.images[0])}" alt="${p.title} 화면"></div>
+            <button class="car-btn car-next" aria-label="다음 화면">›</button>
+          </div>
+          <div class="car-count"></div>`;
+      }
       modalBody.innerHTML = `
         <h3 class="modal__title">${p.title}</h3>
         <p class="modal__meta">${p.company}</p>
         <div class="modal__tags">${tags}</div>
         <ul class="modal__details">${details}</ul>
         ${gallery}`;
+      galImages = p.images;
+      galIdx = 0;
+      renderGallery();
       modalBody.parentElement.scrollTop = 0;
       lastFocus = document.activeElement;
       modal.classList.add('open');
@@ -781,19 +823,24 @@
     });
     modal.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', closeModal));
 
-    // Image lightbox (delegated from gallery)
+    // Carousel paging + image lightbox (delegated)
     modalBody.addEventListener('click', (e) => {
-      const img = e.target.closest('.modal__gallery img');
-      if (!img) return;
-      imgviewImg.src = img.src;
-      imgview.classList.add('open');
+      if (e.target.closest('.car-prev')) { if (galIdx > 0) { galIdx--; renderGallery(); } return; }
+      if (e.target.closest('.car-next')) { if (galIdx < galImages.length - 1) { galIdx++; renderGallery(); } return; }
+      const img = e.target.closest('.car-img');
+      if (img) { imgviewImg.src = img.src; imgview.classList.add('open'); }
     });
     imgview.addEventListener('click', () => imgview.classList.remove('open'));
 
     document.addEventListener('keydown', (e) => {
-      if (e.key !== 'Escape') return;
-      if (imgview.classList.contains('open')) imgview.classList.remove('open');
-      else if (modal.classList.contains('open')) closeModal();
+      if (imgview.classList.contains('open')) {
+        if (e.key === 'Escape') imgview.classList.remove('open');
+        return;
+      }
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') closeModal();
+      else if (e.key === 'ArrowLeft' && galIdx > 0) { galIdx--; renderGallery(); }
+      else if (e.key === 'ArrowRight' && galIdx < galImages.length - 1) { galIdx++; renderGallery(); }
     });
 
     // Nav scroll state
