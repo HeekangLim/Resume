@@ -76,11 +76,17 @@
     .stat__num { font-family: var(--serif); font-size: 2.4rem; font-weight: 700; line-height: 1; color: var(--ink); }
     .stat__label { font-size: 0.82rem; color: var(--ink-3); margin-top: 8px; letter-spacing: 0.02em; }
 
-    /* Hero device */
-    .hero__device { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-    .device { width: 268px; background: var(--paper-2); border: 1px solid var(--line-2); border-radius: 30px; padding: 12px; box-shadow: 0 30px 60px -28px rgba(40, 30, 20, 0.4); }
-    .device img { display: block; width: 100%; border-radius: 20px; }
-    .hero__device figcaption { font-size: 0.82rem; color: var(--ink-3); letter-spacing: 0.02em; }
+    /* Hero profile card */
+    .hero__card { background: var(--paper-2); border: 1px solid var(--line); border-radius: 16px; padding: 26px; box-shadow: 0 30px 60px -34px rgba(40, 30, 20, 0.45); max-width: 360px; width: 100%; margin: 0 auto; }
+    .hero__card-head { display: flex; gap: 16px; align-items: center; }
+    .hero__card-photo { width: 88px; flex-shrink: 0; border-radius: 8px; border: 1px solid var(--line-2); display: block; }
+    .hero__card-name { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.01em; }
+    .hero__card-name span { display: block; font-weight: 500; font-size: 0.8rem; color: var(--ink-3); letter-spacing: 0.02em; margin-top: 3px; }
+    .hero__card-role { color: var(--accent); font-weight: 600; font-size: 0.9rem; margin-top: 8px; }
+    .hero__card-facts { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 11px; }
+    .hero__card-facts > div { display: flex; gap: 12px; font-size: 0.9rem; }
+    .hero__card-facts dt { width: 50px; flex-shrink: 0; color: var(--ink-3); font-weight: 600; }
+    .hero__card-facts dd { color: var(--ink); }
 
     /* Sections */
     .section { max-width: var(--maxw); margin: 0 auto; padding: 90px clamp(20px, 5vw, 40px); }
@@ -213,7 +219,7 @@
     /* Responsive */
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; text-align: center; padding-top: 120px; gap: 40px; }
-      .hero__device { order: -1; }
+      .hero__card { text-align: left; margin: 8px auto 0; }
       .hero__badge { border-bottom: 0; padding-bottom: 0; }
       .hero__cta { justify-content: center; }
       .hero__desc { margin-left: auto; margin-right: auto; }
@@ -289,10 +295,23 @@
         </div>
       </div>
 
-      <figure class="hero__device reveal">
-        <div class="device"><img src="images/jobkorea-1.jpg" alt="잡코리아 앱 — AI 추천 홈 화면" /></div>
-        <figcaption>잡코리아 · AI 추천 홈 화면</figcaption>
-      </figure>
+      <aside class="hero__card reveal">
+        <div class="hero__card-head">
+          <img class="hero__card-photo" src="images/profile.jpg" alt="임희강 프로필 사진" />
+          <div>
+            <p class="hero__card-name">임희강 <span>Lim Heekang</span></p>
+            <p class="hero__card-role">모바일 앱 개발자</p>
+          </div>
+        </div>
+        <dl class="hero__card-facts">
+          <div><dt>경력</dt><dd>17년 · 2009~현재</dd></div>
+          <div><dt>현직</dt><dd>웍스피어 (잡코리아·알바몬)</dd></div>
+          <div><dt>주력</dt><dd>Flutter · Kotlin · Jetpack Compose</dd></div>
+          <div><dt>플랫폼</dt><dd>Android · iOS · Cross-Platform</dd></div>
+          <div><dt>어학</dt><dd>일본어 JLPT 2급</dd></div>
+          <div><dt>위치</dt><dd>서울 서초구</dd></div>
+        </dl>
+      </aside>
     </section>
 
     <!-- About -->
