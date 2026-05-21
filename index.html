@@ -128,11 +128,8 @@
     .proj { background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; cursor: pointer; display: flex; flex-direction: column; transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s; }
     .proj:hover { transform: translateY(-4px); border-color: var(--line-2); box-shadow: 0 18px 36px -22px rgba(40, 30, 20, 0.4); }
     .proj:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-    .proj__media { height: 182px; display: flex; align-items: center; justify-content: center; background: var(--paper); border-bottom: 1px solid var(--line); overflow: hidden; }
-    .proj__media img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 0.4s; }
-    .proj:hover .proj__media img { transform: scale(1.04); }
-    .proj__media--ph { background: repeating-linear-gradient(45deg, var(--paper), var(--paper) 10px, #efece4 10px, #efece4 20px); }
-    .proj__media--ph span { font-family: var(--serif); font-size: 1rem; color: var(--ink-3); padding: 0 24px; text-align: center; }
+    .proj__media { height: 150px; display: flex; align-items: center; justify-content: center; background: var(--brand, #333); border-bottom: 1px solid var(--line); padding: 0 18px; }
+    .proj__wordmark { font-weight: 800; font-size: 1.5rem; letter-spacing: 0.01em; color: #fff; text-align: center; line-height: 1.2; }
     .proj__body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
     .proj h3 { font-family: var(--serif); font-size: 1.12rem; font-weight: 700; }
     .proj__co { font-size: 0.78rem; color: var(--accent); margin: 5px 0 12px; letter-spacing: 0.02em; }
@@ -142,10 +139,10 @@
     .proj__more { margin-top: auto; padding-top: 16px; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
 
     /* Filters */
-    .filters { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
-    .filter-group { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
-    .filter-label { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); width: 44px; flex-shrink: 0; }
+    .filters { margin-bottom: 36px; }
     .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .filter-chips.collapsed { max-height: 38px; overflow: hidden; }
+    .filter-toggle { margin-top: 12px; background: none; border: 0; color: var(--accent); font-weight: 600; font-size: 0.84rem; cursor: pointer; padding: 4px 0; }
     .chip { font-family: inherit; font-size: 0.85rem; font-weight: 500; padding: 7px 14px; border: 1px solid var(--line-2); border-radius: 2px; background: var(--paper-2); color: var(--ink-2); cursor: pointer; transition: background 0.18s, border-color 0.18s, color 0.18s; }
     .chip:hover { border-color: var(--ink); color: var(--ink); }
     .chip.is-active { background: var(--accent); border-color: var(--accent); color: #fff; }
@@ -166,13 +163,15 @@
     .modal__details { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
     .modal__details li { position: relative; padding-left: 16px; color: var(--ink-2); font-size: 0.96rem; }
     .modal__details li::before { content: "–"; position: absolute; left: 0; color: var(--accent); }
-    .modal__carousel { display: flex; align-items: center; justify-content: center; gap: 12px; }
-    .car-stage { flex: 1 1 auto; display: flex; justify-content: center; min-width: 0; }
-    .car-img { max-height: 380px; max-width: 100%; border-radius: 8px; border: 1px solid var(--line-2); background: var(--paper); cursor: zoom-in; }
-    .car-btn { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line-2); background: var(--paper-2); color: var(--ink); font-size: 1.4rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, opacity 0.2s; }
-    .car-btn:hover:not(:disabled) { border-color: var(--ink); }
-    .car-btn:disabled { opacity: 0.3; cursor: default; }
-    .car-count { text-align: center; margin-top: 12px; font-size: 0.84rem; color: var(--ink-3); letter-spacing: 0.04em; }
+    .modal__carousel { position: relative; display: flex; justify-content: center; align-items: center; }
+    .car-track { display: flex; justify-content: center; width: 100%; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
+    .car-img { max-height: 60vh; max-width: 100%; border-radius: 10px; border: 1px solid var(--line-2); background: var(--paper); cursor: zoom-in; -webkit-user-drag: none; }
+    .car-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line-2); background: rgba(255, 255, 255, 0.92); color: var(--ink); font-size: 1.4rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 12px rgba(28, 22, 16, 0.15); transition: background 0.2s, opacity 0.2s; }
+    .car-prev { left: 6px; }
+    .car-next { right: 6px; }
+    .car-btn:hover:not(:disabled) { background: #fff; }
+    .car-btn:disabled { opacity: 0; pointer-events: none; }
+    .car-count { text-align: center; margin-top: 14px; font-size: 0.84rem; color: var(--ink-3); letter-spacing: 0.04em; }
     .modal__note { color: var(--ink-3); font-size: 0.9rem; font-style: italic; }
 
     /* Image lightbox */
@@ -241,8 +240,8 @@
       .hero__stats { gap: 26px; }
       .stat__num { font-size: 1.9rem; }
       .tl-card__top { flex-direction: column; }
-      .car-img { max-height: 320px; }
-      .car-btn { width: 34px; height: 34px; font-size: 1.2rem; }
+      .car-img { max-height: 52vh; }
+      .car-btn { width: 36px; height: 36px; font-size: 1.2rem; }
       .modal__panel { margin: 4vh auto; padding: 30px 20px 32px; }
       .about__values li { padding: 0 12px; }
     }
@@ -614,67 +613,67 @@
   <script>
     // ---- Project data ----
     const PROJECTS = [
-      { title: '게임잡 (GameJob)', companyName: '웍스피어', langs: ['Flutter'], company: '웍스피어 · 2023~', tags: ['Flutter', 'Dart', 'Riverpod'],
+      { title: '게임잡 (GameJob)', brand: 'GAMEJOB', brandColor: '#0fa3a8', companyName: '웍스피어', langs: ['Flutter'], company: '웍스피어 · 2023~', tags: ['Flutter', 'Dart', 'Riverpod'],
         summary: 'Flutter 기반 게임 업계 특화 채용 플랫폼 신규 개발·운영.',
         details: [
           'Flutter + Riverpod로 게임 업계 특화 채용 앱을 신규 개발.',
           '출시 후 사용자 피드백 반영, 신규 기능 추가 및 지속적인 성능 최적화.',
           '운영 이슈 모니터링과 신속한 장애 대응.'
         ], images: ['gamejob-1'] },
-      { title: '잡코리아 채용 앱 (Compose · 검색)', companyName: '웍스피어', langs: ['Kotlin', 'Compose', 'Flutter'], company: '웍스피어 · 2023~', tags: ['Compose', 'Kotlin', 'Flutter'],
+      { title: '잡코리아 채용 앱 (Compose · 검색)', brand: 'JOBKOREA', brandColor: '#2b6fe3', companyName: '웍스피어', langs: ['Kotlin', 'Compose', 'Flutter'], company: '웍스피어 · 2023~', tags: ['Compose', 'Kotlin', 'Flutter'],
         summary: '기존 View 시스템 → Jetpack Compose 신규 전환, 검색 영역 Flutter 리뉴얼.',
         details: [
           '기존 View 시스템을 Jetpack Compose로 신규 전환하고 AI 추천 기능 구현.',
           'Flutter 리뉴얼에서 검색 영역을 신규 개발하며 기존 네이티브 코드를 마이그레이션.',
           '채용 서비스 핵심 기능 개발 및 사용자 편의성 향상.'
         ], images: ['jobkorea-1', 'jobkorea-2'] },
-      { title: '알바몬 앱 (Android · iOS)', companyName: '웍스피어', langs: ['Kotlin', 'Swift'], company: '웍스피어 · 진행 중', tags: ['Kotlin', 'Swift', 'iOS'],
+      { title: '알바몬 앱 (Android · iOS)', brand: 'albamon', brandColor: '#ff7a00', companyName: '웍스피어', langs: ['Kotlin', 'Swift'], company: '웍스피어 · 진행 중', tags: ['Kotlin', 'Swift', 'iOS'],
         summary: '알바몬 채용 서비스 담당. Android·iOS 양 플랫폼 기능 개선 진행 중.',
         details: [
           '알바몬 앱 Android·iOS 담당.',
           '양 플랫폼 기능 수정·개선 및 신규 개발 진행 중.'
         ], images: ['albamon-1'] },
-      { title: '사내 앱스토어', companyName: '풀무원', langs: ['Flutter'], company: '풀무원 · 2022~2023', tags: ['Flutter', 'Firebase', 'Serverless'],
+      { title: '사내 앱스토어', brand: 'Pulmuone', brandColor: '#4ca64c', companyName: '풀무원', langs: ['Flutter'], company: '풀무원 · 2022~2023', tags: ['Flutter', 'Firebase', 'Serverless'],
         summary: '서버 없이 Firebase만으로 만든 크로스플랫폼 사내 앱스토어. 전 직원 사용.',
         details: [
           '서버 지원 없이 Firebase Realtime DB·Storage만으로 크로스플랫폼 사내 앱스토어를 직접 구상·제안·개발.',
           '앱 다운로드·설치·업데이트 프로세스를 자동화하여 운영 효율화.',
           '풀무원 지주사 및 계열사 전 직원이 사용 중.'
         ], images: ['appstore-1', 'appstore-2', 'appstore-3'] },
-      { title: 'GS Shop · GS Fresh', companyName: 'GS ITM', langs: ['Kotlin', 'Java', 'Flutter'], company: 'GS ITM · 2018~2022 (파트 리더)', tags: ['Kotlin', 'Java', 'Flutter'],
+      { title: 'GS Shop · GS Fresh', brand: 'GS SHOP·FRESH', brandColor: '#e2007a', companyName: 'GS ITM', langs: ['Kotlin', 'Java', 'Flutter'], company: 'GS ITM · 2018~2022 (파트 리더)', tags: ['Kotlin', 'Java', 'Flutter'],
         summary: 'GS Shop Android 앱 운영 리더 + GS Fresh Flutter 전환 파트 리더.',
         details: [
           'GS Shop Android 앱 운영 파트 리더 — 코틀린 전환, RESTful 통신 기반 매장 배너 Flexible 노출 설계.',
           'GS Fresh Flutter 신규 개발 파트 리더 — 하이브리드 앱을 Flutter로 컨버전, 회원정보 마이그레이션·외부 라이브러리 채널링.',
           '장애 사전 인지·원인 제거 중심의 안정 운영.'
         ], images: ['gsshop-1', 'gsshop-2', 'gsshop-3'] },
-      { title: '멀티 플랫폼 푸시 SDK', companyName: '휴머스온', langs: ['Java', 'Objective-C'], company: '휴머스온 · 2017~2018', tags: ['Java', 'Objective-C', 'SDK'],
+      { title: '멀티 플랫폼 푸시 SDK', brand: 'HUMUSON', brandColor: '#3949ab', companyName: '휴머스온', langs: ['Java', 'Objective-C'], company: '휴머스온 · 2017~2018', tags: ['Java', 'Objective-C', 'SDK'],
         summary: 'GCM·FCM·Baidu·APNS·Private 서버를 아우르는 Android·iOS 푸시 수신 SDK.',
         details: [
           'GCM·FCM·Baidu·APNS·Private 서버 푸시를 모두 대응하는 수신 SDK 개발.',
           '고객사별 커스텀 디스플레이(영상·이미지 팝업) 제공.',
           '푸시 메시지 DB 저장 및 고객 요구 기반 Query 조회 기능 제공.'
         ], images: [] },
-      { title: '홍채인식 SDK', companyName: '아이리스아이디', langs: ['Java', 'C/C++'], company: '아이리스아이디 · 2016~2017', tags: ['Java', 'JNI/NDK', 'Security'],
+      { title: '홍채인식 SDK', brand: 'IriTech', brandColor: '#00897b', companyName: '아이리스아이디', langs: ['Java', 'C/C++'], company: '아이리스아이디 · 2016~2017', tags: ['Java', 'JNI/NDK', 'Security'],
         summary: '홍채인식 기기 USB 연동 Android SDK. 1:1 / 1:N 매칭, SSL 보안 DB.',
         details: [
           '홍채인식 기기와 USB 통신으로 라이브 영상·눈 이미지를 캡쳐.',
           '홍채 1:1 / 1:N 매칭 결과 제공.',
           '사용자·홍채 데이터 DB 구축 및 SSL 통신 기반 보안.'
         ], images: ['iris-1', 'iris-2'] },
-      { title: '유라이브 블랙박스 뷰어', companyName: '나다텔', langs: ['Java', 'Objective-C', 'C/C++'], company: '나다텔 · 2014~2016', tags: ['Android', 'iOS', 'C++'],
+      { title: '유라이브 블랙박스 뷰어', brand: 'NADATEL', brandColor: '#1565c0', companyName: '나다텔', langs: ['Java', 'Objective-C', 'C/C++'], company: '나다텔 · 2014~2016', tags: ['Android', 'iOS', 'C++'],
         summary: '블랙박스 Wifi 연동 앱(Android·iOS) + 2/4채널 PC Viewer.',
         details: [
           '유라이브 블랙박스 Wifi 연동 앱 — 실시간 감시, 원격 검색·설정·SD 포맷·펌웨어 업그레이드.',
           '2채널·4채널 PC Viewer(C++) — 영상 재생, GPS 정보 기반 지도 위치 표기, 자동 업데이트.'
         ], images: ['blackbox-1', 'blackbox-2', 'blackbox-3'] },
-      { title: '농촌진흥청 · 사랑의 교회 앱', companyName: '프리랜서', langs: ['Java', 'Objective-C'], company: '프리랜서 · 2013~2014', tags: ['Android', 'iOS', 'Hybrid'],
+      { title: '농촌진흥청 · 사랑의 교회 앱', brand: 'Freelance', brandColor: '#5f6b7a', companyName: '프리랜서', langs: ['Java', 'Objective-C'], company: '프리랜서 · 2013~2014', tags: ['Android', 'iOS', 'Hybrid'],
         summary: '농촌진흥청 하이브리드 앱과 사랑의 교회 iOS 앱 개발.',
         details: [
           '농촌진흥청 — 야콘 요리법·웰빙레시피 하이브리드 앱, 웹에서 등록한 레시피 연동.',
           '사랑의 교회 iOS — 트위터 연동, 영상·음성 재생, 월별 일정 서버 연동.'
         ], images: ['freelance-1', 'freelance-2', 'freelance-3', 'freelance-4'] },
-      { title: '초기 커리어 — LG · 삼성 · SKT', companyName: '디자인정글·파인원', langs: ['Java', 'Flash'], company: '디자인정글 · 파인원 · 2009~2013', tags: ['Java', 'Flash AS', 'JNI'],
+      { title: '초기 커리어 — LG · 삼성 · SKT', brand: 'LG · 삼성 · SKT', brandColor: '#455a64', companyName: '디자인정글·파인원', langs: ['Java', 'Flash'], company: '디자인정글 · 파인원 · 2009~2013', tags: ['Java', 'Flash AS', 'JNI'],
         summary: 'LG Call/Google TV, 삼성 Flash Mobile, SKT SoundCode, LG tvG 등 피처폰·IPTV 시대 다수 프로젝트.',
         details: [
           'LG 국내·북미·유럽향 Call / FMC Call / Call Settings, LG Google TV Launcher 신규 개발.',
@@ -687,9 +686,7 @@
     // Render project cards
     const grid = document.getElementById('projGrid');
     grid.innerHTML = PROJECTS.map((p, i) => {
-      const media = p.images.length
-        ? `<div class="proj__media"><img loading="lazy" src="${IMG(p.images[0])}" alt="${p.title} 화면"></div>`
-        : `<div class="proj__media proj__media--ph"><span>${p.title}</span></div>`;
+      const media = `<div class="proj__media" style="--brand:${p.brandColor}"><span class="proj__wordmark">${p.brand}</span></div>`;
       const tags = p.tags.map((t) => `<span>${t}</span>`).join('');
       return `<article class="proj reveal" data-idx="${i}" tabindex="0" role="button" aria-label="${p.title} 상세 보기">
         ${media}
@@ -703,57 +700,54 @@
       </article>`;
     }).join('');
 
-    // ---- Filters (company / language, faceted) ----
-    const COMPANIES = [...new Set(PROJECTS.map((p) => p.companyName))];
-    const LANGS = ['Flutter', 'Kotlin', 'Compose', 'Swift', 'Java', 'Objective-C', 'C/C++', 'Flash'];
+    // ---- Filters (single list, most-recent first, collapsible) ----
     const filters = document.getElementById('projFilters');
-    let fCompany = 'all', fLang = 'all';
+    const compIdx = {}, langIdx = {};
+    PROJECTS.forEach((p, i) => {
+      if (!(p.companyName in compIdx)) compIdx[p.companyName] = i;
+      p.langs.forEach((l) => { if (!(l in langIdx)) langIdx[l] = i; });
+    });
+    const filterItems = [
+      ...Object.entries(compIdx).map(([val, idx]) => ({ type: 'company', val, idx })),
+      ...Object.entries(langIdx).map(([val, idx]) => ({ type: 'lang', val, idx })),
+    ].sort((a, b) => a.idx - b.idx || (a.type === b.type ? 0 : a.type === 'company' ? -1 : 1));
 
-    const groupHTML = (label, group, vals) => `
-      <div class="filter-group">
-        <span class="filter-label">${label}</span>
-        <div class="filter-chips" data-group="${group}">
-          <button class="chip is-active" data-val="all">전체</button>
-          ${vals.map((v) => `<button class="chip" data-val="${v}">${v}</button>`).join('')}
-        </div>
-      </div>`;
-    filters.innerHTML = groupHTML('회사', 'company', COMPANIES) + groupHTML('언어', 'lang', LANGS);
+    const chipsHTML = '<button class="chip is-active" data-type="all" data-val="all">전체</button>'
+      + filterItems.map((it) => `<button class="chip" data-type="${it.type}" data-val="${it.val}">${it.val}</button>`).join('');
+    filters.innerHTML = `<div class="filter-chips collapsed" id="filterChips">${chipsHTML}</div><button class="filter-toggle" id="filterToggle" hidden>더보기 ▾</button>`;
 
-    const combo = (c, l) => PROJECTS.some((p) => (c === 'all' || p.companyName === c) && (l === 'all' || p.langs.includes(l)));
-    const setActive = (group, val) => filters.querySelectorAll(`.filter-chips[data-group="${group}"] .chip`).forEach((c) => c.classList.toggle('is-active', c.dataset.val === val));
+    const chipsBox = document.getElementById('filterChips');
+    const filterToggle = document.getElementById('filterToggle');
 
-    const refresh = () => {
-      // hide options that would yield no result given the other group's selection
-      filters.querySelectorAll('.filter-chips[data-group="lang"] .chip').forEach((c) => {
-        c.style.display = (c.dataset.val === 'all' || combo(fCompany, c.dataset.val)) ? '' : 'none';
-      });
-      filters.querySelectorAll('.filter-chips[data-group="company"] .chip').forEach((c) => {
-        c.style.display = (c.dataset.val === 'all' || combo(c.dataset.val, fLang)) ? '' : 'none';
-      });
+    const applyFilter = (type, val) => {
       grid.querySelectorAll('.proj').forEach((card) => {
         const p = PROJECTS[+card.dataset.idx];
-        const ok = (fCompany === 'all' || p.companyName === fCompany) && (fLang === 'all' || p.langs.includes(fLang));
+        const ok = type === 'all'
+          || (type === 'company' && p.companyName === val)
+          || (type === 'lang' && p.langs.includes(val));
         card.style.display = ok ? '' : 'none';
         if (ok) card.classList.add('in');
       });
     };
-
-    filters.querySelectorAll('.filter-chips').forEach((box) => {
-      box.addEventListener('click', (e) => {
-        const btn = e.target.closest('.chip');
-        if (!btn) return;
-        const group = box.dataset.group, val = btn.dataset.val;
-        if (group === 'company') {
-          fCompany = val;
-          if (!combo(fCompany, fLang)) { fLang = 'all'; setActive('lang', 'all'); }
-        } else {
-          fLang = val;
-          if (!combo(fCompany, fLang)) { fCompany = 'all'; setActive('company', 'all'); }
-        }
-        setActive(group, val);
-        refresh();
-      });
+    chipsBox.addEventListener('click', (e) => {
+      const btn = e.target.closest('.chip');
+      if (!btn) return;
+      chipsBox.querySelectorAll('.chip').forEach((c) => c.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      applyFilter(btn.dataset.type, btn.dataset.val);
     });
+
+    // collapse to one row; show toggle only when chips overflow
+    const syncToggle = () => {
+      const overflowing = chipsBox.scrollHeight > chipsBox.clientHeight + 2;
+      if (chipsBox.classList.contains('collapsed')) filterToggle.hidden = !overflowing;
+    };
+    filterToggle.addEventListener('click', () => {
+      const collapsed = chipsBox.classList.toggle('collapsed');
+      filterToggle.textContent = collapsed ? '더보기 ▾' : '접기 ▴';
+    });
+    requestAnimationFrame(syncToggle);
+    window.addEventListener('resize', () => { if (chipsBox.classList.contains('collapsed')) syncToggle(); });
 
     // Modal
     const modal = document.getElementById('projModal');
@@ -783,11 +777,11 @@
       if (!p.images.length) {
         gallery = '<p class="modal__note">이 프로젝트는 화면 캡처가 제공되지 않습니다.</p>';
       } else if (p.images.length === 1) {
-        gallery = `<div class="modal__carousel"><div class="car-stage"><img class="car-img" src="${IMG(p.images[0])}" alt="${p.title} 화면"></div></div>`;
+        gallery = `<div class="modal__carousel"><div class="car-track"><img class="car-img" src="${IMG(p.images[0])}" alt="${p.title} 화면"></div></div>`;
       } else {
         gallery = `<div class="modal__carousel">
+            <div class="car-track"><img class="car-img" src="${IMG(p.images[0])}" alt="${p.title} 화면"></div>
             <button class="car-btn car-prev" aria-label="이전 화면">‹</button>
-            <div class="car-stage"><img class="car-img" src="${IMG(p.images[0])}" alt="${p.title} 화면"></div>
             <button class="car-btn car-next" aria-label="다음 화면">›</button>
           </div>
           <div class="car-count"></div>`;
@@ -824,12 +818,33 @@
     modal.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', closeModal));
 
     // Carousel paging + image lightbox (delegated)
+    let swiped = false;
     modalBody.addEventListener('click', (e) => {
       if (e.target.closest('.car-prev')) { if (galIdx > 0) { galIdx--; renderGallery(); } return; }
       if (e.target.closest('.car-next')) { if (galIdx < galImages.length - 1) { galIdx++; renderGallery(); } return; }
       const img = e.target.closest('.car-img');
-      if (img) { imgviewImg.src = img.src; imgview.classList.add('open'); }
+      if (img) {
+        if (swiped) { swiped = false; return; }
+        imgviewImg.src = img.src;
+        imgview.classList.add('open');
+      }
     });
+    // Touch flick paging
+    let touchX = null;
+    modalBody.addEventListener('touchstart', (e) => {
+      if (!e.target.closest('.car-track')) return;
+      touchX = e.touches[0].clientX;
+      swiped = false;
+    }, { passive: true });
+    modalBody.addEventListener('touchend', (e) => {
+      if (touchX === null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (Math.abs(dx) < 40) return;
+      swiped = true;
+      if (dx < 0 && galIdx < galImages.length - 1) { galIdx++; renderGallery(); }
+      else if (dx > 0 && galIdx > 0) { galIdx--; renderGallery(); }
+    }, { passive: true });
     imgview.addEventListener('click', () => imgview.classList.remove('open'));
 
     document.addEventListener('keydown', (e) => {
