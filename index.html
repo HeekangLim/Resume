@@ -186,14 +186,46 @@
 
     /* Projects */
     .projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .proj { background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 26px; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; }
+    .proj { background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; cursor: pointer; display: flex; flex-direction: column; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; }
     .proj:hover { transform: translateY(-6px); border-color: rgba(124,92,255,0.5); box-shadow: 0 20px 40px -20px rgba(124,92,255,0.4); }
-    .proj__icon { font-size: 2rem; margin-bottom: 14px; }
-    .proj h3 { font-size: 1.18rem; font-weight: 800; }
-    .proj__co { font-family: "JetBrains Mono", monospace; font-size: 0.8rem; color: var(--grad-b); margin: 4px 0 12px; }
-    .proj p { color: var(--text-dim); font-size: 0.92rem; }
+    .proj:focus-visible { outline: 2px solid var(--grad-b); outline-offset: 2px; }
+    .proj__media { height: 172px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 0%, rgba(124,92,255,0.18), transparent 70%), #0a0c16; border-bottom: 1px solid var(--card-border); overflow: hidden; }
+    .proj__media img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 0.4s; }
+    .proj:hover .proj__media img { transform: scale(1.05); }
+    .proj__icon { font-size: 2.8rem; }
+    .proj__body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
+    .proj h3 { font-size: 1.16rem; font-weight: 800; }
+    .proj__co { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; color: var(--grad-b); margin: 4px 0 12px; }
+    .proj__body > p { color: var(--text-dim); font-size: 0.92rem; }
     .proj__tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
     .proj__tags span { font-size: 0.75rem; padding: 4px 10px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); font-family: "JetBrains Mono", monospace; color: var(--text-dim); }
+    .proj__more { margin-top: auto; padding-top: 16px; color: var(--grad-b); font-weight: 700; font-size: 0.85rem; }
+
+    /* Modal */
+    .modal { position: fixed; inset: 0; z-index: 200; display: none; }
+    .modal.open { display: block; }
+    .modal__overlay { position: absolute; inset: 0; background: rgba(5,6,12,0.82); backdrop-filter: blur(6px); animation: fade 0.25s ease; }
+    .modal__panel { position: relative; width: min(760px, 92vw); margin: 6vh auto; max-height: 86vh; overflow-y: auto; background: var(--bg-soft); border: 1px solid var(--card-border); border-radius: 24px; padding: 34px clamp(22px, 4vw, 38px) 38px; box-shadow: 0 50px 120px -20px rgba(0,0,0,0.85); animation: pop 0.28s cubic-bezier(0.2,0.8,0.3,1.2); }
+    @keyframes fade { from { opacity: 0; } }
+    @keyframes pop { from { opacity: 0; transform: translateY(20px) scale(0.97); } }
+    .modal__close { position: absolute; top: 16px; right: 16px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--card-border); background: var(--card); color: var(--text); font-size: 1.3rem; line-height: 1; cursor: pointer; transition: background 0.2s; z-index: 2; }
+    .modal__close:hover { background: rgba(255,255,255,0.1); }
+    .modal__title { font-size: 1.5rem; font-weight: 900; padding-right: 44px; }
+    .modal__meta { font-family: "JetBrains Mono", monospace; font-size: 0.84rem; color: var(--grad-b); margin: 6px 0 14px; }
+    .modal__tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+    .modal__tags span { font-size: 0.74rem; padding: 4px 10px; border-radius: 8px; background: rgba(124,92,255,0.14); color: #c3b4ff; font-family: "JetBrains Mono", monospace; }
+    .modal__details { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; }
+    .modal__details li { position: relative; padding-left: 18px; color: var(--text-dim); font-size: 0.96rem; }
+    .modal__details li::before { content: "▹"; position: absolute; left: 0; color: var(--grad-a); }
+    .modal__gallery { display: flex; flex-wrap: wrap; gap: 12px; }
+    .modal__gallery img { height: 300px; max-width: 100%; border-radius: 12px; border: 1px solid var(--card-border); cursor: zoom-in; background: #0a0c16; transition: transform 0.2s; }
+    .modal__gallery img:hover { transform: translateY(-3px); }
+    .modal__note { color: var(--text-mute); font-size: 0.9rem; font-style: italic; }
+
+    /* Image lightbox */
+    .imgview { position: fixed; inset: 0; z-index: 300; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.92); cursor: zoom-out; padding: 24px; }
+    .imgview.open { display: flex; }
+    .imgview img { max-width: 96vw; max-height: 92vh; border-radius: 10px; box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
 
     /* Extra */
     .extra { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -256,6 +288,8 @@
       .hero__stats { gap: 22px; }
       .stat__num { font-size: 1.7rem; }
       .tl-card__top { flex-direction: column; }
+      .modal__gallery img { height: auto; width: 100%; }
+      .modal__panel { margin: 4vh auto; padding: 30px 20px 32px; }
     }
   </style>
   <noscript><style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
@@ -299,7 +333,7 @@
         </p>
         <p class="hero__desc">
           피처폰 플래시 시절부터 Compose UI·Flutter까지, 모바일의 변화를 17년간 현장에서 직접 만들어 왔습니다.
-          현재는 <strong>잡코리아</strong>에서 채용 서비스 앱을 개발하며 최신 아키텍처와 AI 생산성 도구를 적극 활용하고 있습니다.
+          현재는 <strong>웍스피어</strong>에서 <strong>잡코리아·알바몬·게임잡</strong> 채용 서비스 앱을 개발하며 최신 아키텍처와 AI 생산성 도구를 적극 활용하고 있습니다.
         </p>
         <div class="hero__cta">
           <a href="#projects" class="btn btn--primary">프로젝트 보기</a>
@@ -331,8 +365,8 @@
                 <small>게임 업계 특화 채용</small>
               </div>
               <div class="phone__card phone__card--3">
-                <strong>App Store</strong>
-                <small>사내 크로스플랫폼 배포</small>
+                <strong>Albamon</strong>
+                <small>Android · iOS 개발</small>
               </div>
             </div>
           </div>
@@ -397,7 +431,7 @@
         <article class="skill-card">
           <h3>🍎 iOS</h3>
           <div class="skill-card__chips">
-            <span>SwiftUI</span><span>Objective-C</span><span>Xcode</span><span>APNS</span>
+            <span>Swift</span><span>SwiftUI</span><span>Objective-C</span><span>Xcode</span><span>APNS</span>
           </div>
         </article>
         <article class="skill-card">
@@ -422,16 +456,17 @@
           <div class="tl-dot"></div>
           <div class="tl-card">
             <div class="tl-card__top">
-              <h3>잡코리아 <span class="tl-badge tl-badge--live">재직 중</span></h3>
+              <h3>웍스피어 <span class="tl-badge tl-badge--live">재직 중</span></h3>
               <span class="tl-date">2023.06 ~ 현재</span>
             </div>
-            <p class="tl-role">앱개발팀 · 모바일 앱 개발</p>
+            <p class="tl-role">앱개발팀 · 잡코리아 · 알바몬 · 게임잡 앱 개발</p>
             <ul>
               <li><strong>게임잡 앱 신규 개발</strong> — Flutter 기반 게임 업계 특화 채용 플랫폼 구축·운영</li>
               <li><strong>잡코리아 앱 Compose UI 개발</strong> — 기존 View 시스템을 Jetpack Compose로 신규 전환, AI 추천 기능</li>
               <li><strong>잡코리아 Flutter 리뉴얼</strong> — 검색 영역 신규 개발 및 네이티브 → Flutter 마이그레이션</li>
+              <li><strong>알바몬 앱 Android·iOS 개발</strong> — 알바몬 담당, 양 플랫폼 기능 수정·개선 진행 중</li>
             </ul>
-            <div class="tl-tags"><span>Flutter</span><span>Kotlin</span><span>Compose</span><span>Riverpod</span></div>
+            <div class="tl-tags"><span>Flutter</span><span>Kotlin</span><span>Compose</span><span>Swift</span><span>Riverpod</span></div>
           </div>
         </article>
 
@@ -463,10 +498,10 @@
             <p class="tl-role">과장/매니저 · 커머스 사업센터 (앱 파트 리더)</p>
             <ul>
               <li><strong>GS Shop Android 앱 운영 리더</strong> — 코틀린 전환, RESTful 통신 기반 매장 배너 Flexible 노출 설계</li>
-              <li><strong>GS Fresh Flutter 신규 개발 PM</strong> — 하이브리드 앱을 Flutter로 컨버전, 회원정보 마이그레이션·외부 라이브러리 채널링</li>
+              <li><strong>GS Fresh Flutter 신규 개발 파트 리더</strong> — 하이브리드 앱을 Flutter로 컨버전, 회원정보 마이그레이션·외부 라이브러리 채널링</li>
               <li>장애 사전 인지·원인 제거 중심의 안정 운영</li>
             </ul>
-            <div class="tl-tags"><span>Kotlin</span><span>Java</span><span>Flutter</span><span>PM</span></div>
+            <div class="tl-tags"><span>Kotlin</span><span>Java</span><span>Flutter</span><span>파트 리더</span></div>
           </div>
         </article>
 
@@ -575,57 +610,9 @@
       <div class="section__head reveal">
         <span class="section__tag">Works</span>
         <h2 class="section__title">대표 프로젝트</h2>
-        <p class="section__sub">현장에서 직접 설계하고 출시한 핵심 작업들</p>
+        <p class="section__sub">카드를 클릭하면 상세 설명과 실제 화면을 볼 수 있습니다</p>
       </div>
-      <div class="projects">
-        <article class="proj reveal">
-          <div class="proj__icon">🎮</div>
-          <h3>게임잡 (GameJob)</h3>
-          <p class="proj__co">잡코리아 · 2023~</p>
-          <p>Flutter 기반 게임 업계 특화 채용 플랫폼을 신규 개발. 출시 후 사용자 피드백 반영, 신규 기능 추가 및 성능 최적화, 장애 대응까지 운영 전반을 담당.</p>
-          <div class="proj__tags"><span>Flutter</span><span>Dart</span><span>Riverpod</span></div>
-        </article>
-
-        <article class="proj reveal">
-          <div class="proj__icon">🔍</div>
-          <h3>잡코리아 앱 Compose · 검색 리뉴얼</h3>
-          <p class="proj__co">잡코리아 · 2023~</p>
-          <p>기존 View 시스템을 Jetpack Compose로 신규 전환하고 AI 추천 기능을 구현. Flutter 리뉴얼에서는 검색 영역을 신규 개발하며 네이티브 코드를 마이그레이션.</p>
-          <div class="proj__tags"><span>Compose</span><span>Kotlin</span><span>Flutter</span></div>
-        </article>
-
-        <article class="proj reveal">
-          <div class="proj__icon">🏬</div>
-          <h3>사내 앱스토어</h3>
-          <p class="proj__co">풀무원 · 2022~2023</p>
-          <p>서버 지원 없이 Firebase Realtime DB·Storage만으로 크로스플랫폼 사내 앱스토어를 직접 구상·제안·개발. 다운로드·설치·업데이트 자동화로 운영 효율화, 지주사·계열사 전 직원이 사용.</p>
-          <div class="proj__tags"><span>Flutter</span><span>Firebase</span><span>Serverless</span></div>
-        </article>
-
-        <article class="proj reveal">
-          <div class="proj__icon">🛒</div>
-          <h3>GS Fresh Flutter 전환</h3>
-          <p class="proj__co">GS ITM · 2022 (PM)</p>
-          <p>기존 하이브리드 GS Fresh 앱을 Flutter로 신규 개발하는 프로젝트를 PM으로 수행. 업무 세분화·일정 조율, 회원정보 마이그레이션, 미지원 라이브러리 채널링 처리.</p>
-          <div class="proj__tags"><span>Flutter</span><span>PM</span><span>Migration</span></div>
-        </article>
-
-        <article class="proj reveal">
-          <div class="proj__icon">🔔</div>
-          <h3>멀티 플랫폼 푸시 SDK</h3>
-          <p class="proj__co">휴머스온 · 2017~2018</p>
-          <p>GCM·FCM·Baidu·APNS·Private 서버를 아우르는 Android·iOS 푸시 수신 SDK를 개발. 고객사별 커스텀 팝업 디스플레이와 메시지 DB 조회 기능을 제공.</p>
-          <div class="proj__tags"><span>Java</span><span>Objective-C</span><span>SDK</span></div>
-        </article>
-
-        <article class="proj reveal">
-          <div class="proj__icon">👁️</div>
-          <h3>홍채인식 SDK</h3>
-          <p class="proj__co">아이리스아이디 · 2016~2017</p>
-          <p>홍채인식 기기와 USB 통신으로 라이브 영상·눈 이미지를 캡쳐하는 Android SDK 개발. 1:1 / 1:N 매칭과 SSL 기반 보안 DB를 구축.</p>
-          <div class="proj__tags"><span>Java</span><span>JNI/NDK</span><span>Security</span></div>
-        </article>
-      </div>
+      <div class="projects" id="projGrid"></div>
     </section>
 
     <!-- Education / Certs -->
@@ -694,7 +681,165 @@
 
   <a href="#hero" class="to-top" id="toTop" aria-label="맨 위로">↑</a>
 
+  <!-- Project detail modal -->
+  <div class="modal" id="projModal" aria-hidden="true">
+    <div class="modal__overlay" data-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-label="프로젝트 상세">
+      <button class="modal__close" data-close aria-label="닫기">×</button>
+      <div class="modal__body" id="modalBody"></div>
+    </div>
+  </div>
+  <div class="imgview" id="imgView" aria-hidden="true"><img src="" alt="" /></div>
+
   <script>
+    // ---- Project data ----
+    const PROJECTS = [
+      { icon: '🎮', title: '게임잡 (GameJob)', company: '웍스피어 · 2023~', tags: ['Flutter', 'Dart', 'Riverpod'],
+        summary: 'Flutter 기반 게임 업계 특화 채용 플랫폼 신규 개발·운영.',
+        details: [
+          'Flutter + Riverpod로 게임 업계 특화 채용 앱을 신규 개발.',
+          '출시 후 사용자 피드백 반영, 신규 기능 추가 및 지속적인 성능 최적화.',
+          '운영 이슈 모니터링과 신속한 장애 대응.'
+        ], images: ['gamejob-1'] },
+      { icon: '🔍', title: '잡코리아 채용 앱 (Compose · 검색)', company: '웍스피어 · 2023~', tags: ['Compose', 'Kotlin', 'Flutter'],
+        summary: '기존 View 시스템 → Jetpack Compose 신규 전환, 검색 영역 Flutter 리뉴얼.',
+        details: [
+          '기존 View 시스템을 Jetpack Compose로 신규 전환하고 AI 추천 기능 구현.',
+          'Flutter 리뉴얼에서 검색 영역을 신규 개발하며 기존 네이티브 코드를 마이그레이션.',
+          '채용 서비스 핵심 기능 개발 및 사용자 편의성 향상.'
+        ], images: ['jobkorea-1', 'jobkorea-2'] },
+      { icon: '🧩', title: '알바몬 앱 (Android · iOS)', company: '웍스피어 · 진행 중', tags: ['Kotlin', 'Swift', 'iOS'],
+        summary: '알바몬 채용 서비스 담당. Android·iOS 양 플랫폼 기능 개선 진행 중.',
+        details: [
+          '알바몬 앱 Android·iOS 담당.',
+          '양 플랫폼 기능 수정·개선 및 신규 개발 진행 중.'
+        ], images: ['albamon-1'] },
+      { icon: '🏬', title: '사내 앱스토어', company: '풀무원 · 2022~2023', tags: ['Flutter', 'Firebase', 'Serverless'],
+        summary: '서버 없이 Firebase만으로 만든 크로스플랫폼 사내 앱스토어. 전 직원 사용.',
+        details: [
+          '서버 지원 없이 Firebase Realtime DB·Storage만으로 크로스플랫폼 사내 앱스토어를 직접 구상·제안·개발.',
+          '앱 다운로드·설치·업데이트 프로세스를 자동화하여 운영 효율화.',
+          '풀무원 지주사 및 계열사 전 직원이 사용 중.'
+        ], images: ['appstore-1', 'appstore-2', 'appstore-3'] },
+      { icon: '🛒', title: 'GS Shop · GS Fresh', company: 'GS ITM · 2018~2022 (파트 리더)', tags: ['Kotlin', 'Java', 'Flutter'],
+        summary: 'GS Shop Android 앱 운영 리더 + GS Fresh Flutter 전환 파트 리더.',
+        details: [
+          'GS Shop Android 앱 운영 파트 리더 — 코틀린 전환, RESTful 통신 기반 매장 배너 Flexible 노출 설계.',
+          'GS Fresh Flutter 신규 개발 파트 리더 — 하이브리드 앱을 Flutter로 컨버전, 회원정보 마이그레이션·외부 라이브러리 채널링.',
+          '장애 사전 인지·원인 제거 중심의 안정 운영.'
+        ], images: ['gsshop-1', 'gsshop-2', 'gsshop-3'] },
+      { icon: '🔔', title: '멀티 플랫폼 푸시 SDK', company: '휴머스온 · 2017~2018', tags: ['Java', 'Objective-C', 'SDK'],
+        summary: 'GCM·FCM·Baidu·APNS·Private 서버를 아우르는 Android·iOS 푸시 수신 SDK.',
+        details: [
+          'GCM·FCM·Baidu·APNS·Private 서버 푸시를 모두 대응하는 수신 SDK 개발.',
+          '고객사별 커스텀 디스플레이(영상·이미지 팝업) 제공.',
+          '푸시 메시지 DB 저장 및 고객 요구 기반 Query 조회 기능 제공.'
+        ], images: [] },
+      { icon: '👁️', title: '홍채인식 SDK', company: '아이리스아이디 · 2016~2017', tags: ['Java', 'JNI/NDK', 'Security'],
+        summary: '홍채인식 기기 USB 연동 Android SDK. 1:1 / 1:N 매칭, SSL 보안 DB.',
+        details: [
+          '홍채인식 기기와 USB 통신으로 라이브 영상·눈 이미지를 캡쳐.',
+          '홍채 1:1 / 1:N 매칭 결과 제공.',
+          '사용자·홍채 데이터 DB 구축 및 SSL 통신 기반 보안.'
+        ], images: ['iris-1', 'iris-2'] },
+      { icon: '📹', title: '유라이브 블랙박스 뷰어', company: '나다텔 · 2014~2016', tags: ['Android', 'iOS', 'C++'],
+        summary: '블랙박스 Wifi 연동 앱(Android·iOS) + 2/4채널 PC Viewer.',
+        details: [
+          '유라이브 블랙박스 Wifi 연동 앱 — 실시간 감시, 원격 검색·설정·SD 포맷·펌웨어 업그레이드.',
+          '2채널·4채널 PC Viewer(C++) — 영상 재생, GPS 정보 기반 지도 위치 표기, 자동 업데이트.'
+        ], images: ['blackbox-1', 'blackbox-2', 'blackbox-3'] },
+      { icon: '📱', title: '농촌진흥청 · 사랑의 교회 앱', company: '프리랜서 · 2013~2014', tags: ['Android', 'iOS', 'Hybrid'],
+        summary: '농촌진흥청 하이브리드 앱과 사랑의 교회 iOS 앱 개발.',
+        details: [
+          '농촌진흥청 — 야콘 요리법·웰빙레시피 하이브리드 앱, 웹에서 등록한 레시피 연동.',
+          '사랑의 교회 iOS — 트위터 연동, 영상·음성 재생, 월별 일정 서버 연동.'
+        ], images: ['freelance-1', 'freelance-2', 'freelance-3', 'freelance-4'] },
+      { icon: '📺', title: '초기 커리어 — LG · 삼성 · SKT', company: '디자인정글 · 파인원 · 2009~2013', tags: ['Java', 'Flash AS', 'JNI'],
+        summary: 'LG Call/Google TV, 삼성 Flash Mobile, SKT SoundCode, LG tvG 등 피처폰·IPTV 시대 다수 프로젝트.',
+        details: [
+          'LG 국내·북미·유럽향 Call / FMC Call / Call Settings, LG Google TV Launcher 신규 개발.',
+          '삼성 Flash Mobile(15여 종 피처폰), Pineone Magazine 제작도구, LG U+ 스마트 멤버십.',
+          'SKT SoundCode(음성 바코드 · JNI), LG tvG — 국내 최초 구글 스마트 TV.'
+        ], images: ['legacy-call', 'legacy-tvlauncher-1', 'legacy-tvlauncher-2', 'legacy-samsung', 'legacy-magazine', 'legacy-membership', 'legacy-soundcode', 'legacy-tvg'] }
+    ];
+    const IMG = (n) => `images/${n}.jpg`;
+
+    // Render project cards
+    const grid = document.getElementById('projGrid');
+    grid.innerHTML = PROJECTS.map((p, i) => {
+      const media = p.images.length
+        ? `<div class="proj__media"><img loading="lazy" src="${IMG(p.images[0])}" alt="${p.title} 화면"></div>`
+        : `<div class="proj__media"><span class="proj__icon">${p.icon}</span></div>`;
+      const tags = p.tags.map((t) => `<span>${t}</span>`).join('');
+      return `<article class="proj reveal" data-idx="${i}" tabindex="0" role="button" aria-label="${p.title} 상세 보기">
+        ${media}
+        <div class="proj__body">
+          <h3>${p.title}</h3>
+          <p class="proj__co">${p.company}</p>
+          <p>${p.summary}</p>
+          <div class="proj__tags">${tags}</div>
+          <span class="proj__more">상세 보기 →</span>
+        </div>
+      </article>`;
+    }).join('');
+
+    // Modal
+    const modal = document.getElementById('projModal');
+    const modalBody = document.getElementById('modalBody');
+    const imgview = document.getElementById('imgView');
+    const imgviewImg = imgview.querySelector('img');
+    let lastFocus = null;
+
+    const openModal = (i) => {
+      const p = PROJECTS[i];
+      const tags = p.tags.map((t) => `<span>${t}</span>`).join('');
+      const details = p.details.map((d) => `<li>${d}</li>`).join('');
+      const gallery = p.images.length
+        ? `<div class="modal__gallery">${p.images.map((n) => `<img loading="lazy" src="${IMG(n)}" alt="${p.title} 화면">`).join('')}</div>`
+        : '<p class="modal__note">이 프로젝트는 화면 캡처가 제공되지 않습니다.</p>';
+      modalBody.innerHTML = `
+        <h3 class="modal__title">${p.title}</h3>
+        <p class="modal__meta">${p.company}</p>
+        <div class="modal__tags">${tags}</div>
+        <ul class="modal__details">${details}</ul>
+        ${gallery}`;
+      modalBody.parentElement.scrollTop = 0;
+      lastFocus = document.activeElement;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
+    const closeModal = () => {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocus) lastFocus.focus();
+    };
+
+    grid.querySelectorAll('.proj').forEach((card) => {
+      const idx = +card.dataset.idx;
+      card.addEventListener('click', () => openModal(idx));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(idx); }
+      });
+    });
+    modal.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', closeModal));
+
+    // Image lightbox (delegated from gallery)
+    modalBody.addEventListener('click', (e) => {
+      const img = e.target.closest('.modal__gallery img');
+      if (!img) return;
+      imgviewImg.src = img.src;
+      imgview.classList.add('open');
+    });
+    imgview.addEventListener('click', () => imgview.classList.remove('open'));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (imgview.classList.contains('open')) imgview.classList.remove('open');
+      else if (modal.classList.contains('open')) closeModal();
+    });
+
     // Nav scroll state
     const nav = document.getElementById('nav');
     const toTop = document.getElementById('toTop');
