@@ -4,21 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>임희강 · 모바일 앱 개발자 포트폴리오</title>
-  <meta name="description" content="17년 차 모바일 앱 개발자 임희강의 포트폴리오. Android(Kotlin/Jetpack Compose), Flutter 크로스플랫폼 전문." />
+  <meta name="description" content="모바일 앱 개발자 임희강의 포트폴리오. Android(Kotlin/Jetpack Compose), Flutter 크로스플랫폼 제품 개발과 개선." />
   <meta name="theme-color" content="#f5f7fa" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ko_KR" />
   <meta property="og:title" content="임희강 · 모바일 앱 개발자 포트폴리오" />
-  <meta property="og:description" content="17년, 모바일의 변화를 제품으로 만든 개발자. Android · Kotlin · Jetpack Compose · Flutter." />
+  <meta property="og:description" content="사용자 흐름을 이해하고 모바일 제품을 안정적으로 설계하고 개선합니다. Android · Kotlin · Jetpack Compose · Flutter." />
   <meta property="og:url" content="https://heekanglim.github.io/Resume/" />
-  <meta property="og:image" content="https://heekanglim.github.io/Resume/images/og-portfolio.png" />
+  <meta property="og:image" content="https://heekanglim.github.io/Resume/images/og-portfolio-focus.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="628" />
   <meta property="og:image:alt" content="임희강 모바일 앱 개발자 포트폴리오 미리보기" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="임희강 · 모바일 앱 개발자 포트폴리오" />
-  <meta name="twitter:description" content="17년, 모바일의 변화를 제품으로 만든 개발자." />
-  <meta name="twitter:image" content="https://heekanglim.github.io/Resume/images/og-portfolio.png" />
+  <meta name="twitter:description" content="사용자 흐름을 이해하고 모바일 제품을 안정적으로 설계하고 개선합니다." />
+  <meta name="twitter:image" content="https://heekanglim.github.io/Resume/images/og-portfolio-focus.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
   <style>
     :root {
@@ -215,19 +215,25 @@
     .hero__desc { max-width: 650px; margin-top: 13px; color: var(--ink-2); font-size: 1rem; }
     .hero__desc strong { color: var(--ink); font-weight: 750; }
     .hero__cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-    .hero__stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
+    .hero__focus {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
       max-width: 590px;
-      margin-top: 38px;
-      padding-top: 24px;
+      margin-top: 30px;
+      padding-top: 22px;
       border-top: 1px solid var(--line);
+      list-style: none;
     }
-    .stat { min-width: 0; padding-left: 20px; border-left: 1px solid var(--line); }
-    .stat:first-child { padding-left: 0; border-left: 0; }
-    .stat__num { display: block; font-size: 2rem; font-weight: 850; letter-spacing: -0.04em; line-height: 1; }
-    .stat__label { display: block; margin-top: 8px; color: var(--ink-3); font-size: 0.78rem; }
+    .hero__focus li {
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--ink-2);
+      font-size: 0.77rem;
+      font-weight: 700;
+    }
 
     .hero__device { min-width: 0; }
     .hero__panel {
@@ -822,10 +828,8 @@
       .hero__desc { margin-top: 11px; font-size: 0.89rem; line-height: 1.75; }
       .hero__cta { display: grid; grid-template-columns: 1fr 1fr; margin-top: 23px; }
       .btn { min-height: 46px; padding-inline: 14px; font-size: 0.86rem; }
-      .hero__stats { margin-top: 29px; padding-top: 20px; }
-      .stat { padding-left: 11px; }
-      .stat__num { font-size: 1.6rem; }
-      .stat__label { margin-top: 6px; font-size: 0.68rem; line-height: 1.35; }
+      .hero__focus { margin-top: 25px; padding-top: 18px; }
+      .hero__focus li { padding: 6px 9px; font-size: 0.69rem; }
       .hero__device { margin-top: 34px; }
       .hero__panel { border-radius: 16px; box-shadow: none; }
       .hero__profile { padding: 17px; }
@@ -858,10 +862,11 @@
       .filter-summary p { font-size: 0.76rem; }
       .filter-toggle { display: inline-flex; flex: 0 0 auto; }
       .filter-panel { max-height: 46px; overflow: hidden; transition: max-height 0.25s; }
-      .filters.is-expanded .filter-panel { max-height: 190px; }
+      .filters.is-expanded .filter-panel { max-height: 560px; }
       .filter-group { display: block; }
       .filter-label { display: block; padding: 0 0 7px; }
       .filter-chips { flex-wrap: nowrap; margin-inline: -18px; padding: 0 18px 8px; overflow-x: auto; scrollbar-width: none; }
+      .filters.is-expanded .filter-chips { flex-wrap: wrap; margin-inline: 0; padding-inline: 0; overflow-x: visible; }
       .filter-chips::-webkit-scrollbar { display: none; }
       .chip { flex: 0 0 auto; }
       .projects { grid-template-columns: 1fr; gap: 12px; }
@@ -921,7 +926,7 @@
     <nav class="nav__links" id="navLinks" aria-label="주요 메뉴">
       <a href="#about">소개</a>
       <a href="#skills">기술</a>
-      <a href="#experience">경력</a>
+      <a href="#experience">경험</a>
       <a href="#projects">프로젝트</a>
       <a href="#extra">교육·자격</a>
       <a href="#contact">연락처</a>
@@ -937,24 +942,24 @@
     <section class="hero" id="hero">
       <div class="hero__inner reveal">
         <p class="hero__badge">Mobile Application Engineer</p>
-        <p class="hero__name">임희강 <span>Lim Heekang · 2009–현재</span></p>
-        <h1 class="hero__title"><span class="grad-text">17년,</span> 모바일 제품을 완성합니다.</h1>
+        <p class="hero__name">임희강 <span>Lim Heekang</span></p>
+        <h1 class="hero__title"><span class="grad-text">사용자 흐름을 이해하고,</span> 모바일 제품을 완성합니다.</h1>
         <p class="hero__subtitle">
           Android (Kotlin · Jetpack Compose) &amp; Flutter 개발자
         </p>
         <p class="hero__desc">
-          피처폰 플래시 시절부터 Compose UI·Flutter까지, 모바일의 변화를 17년간 현장에서 직접 만들어 왔습니다.
-          현재는 <strong>웍스피어</strong>에서 <strong>잡코리아·알바몬·게임잡</strong> 채용 서비스 앱을 개발하며 최신 아키텍처와 AI 생산성 도구를 적극 활용하고 있습니다.
+          현재 <strong>웍스피어</strong>에서 <strong>잡코리아·알바몬·게임잡</strong> 채용 서비스 앱을 개발하고 있습니다.
+          네이티브와 크로스플랫폼 환경을 오가며 제품 전환, 신규 기능, 안정적인 운영에 집중합니다.
         </p>
         <div class="hero__cta">
           <a href="#projects" class="btn btn--primary">프로젝트 보기</a>
           <a href="#contact" class="btn btn--ghost">연락하기</a>
         </div>
-        <div class="hero__stats">
-          <div class="stat"><span class="stat__num">17</span><span class="stat__label">년 경력</span></div>
-          <div class="stat"><span class="stat__num">9</span><span class="stat__label">개 소속사</span></div>
-          <div class="stat"><span class="stat__num">60+</span><span class="stat__label">개 앱 관리</span></div>
-        </div>
+        <ul class="hero__focus" aria-label="업무 초점">
+          <li>네이티브와 크로스플랫폼</li>
+          <li>제품 전환과 안정적 운영</li>
+          <li>팀 협업과 문서화</li>
+        </ul>
       </div>
 
       <div class="hero__device reveal">
@@ -1046,7 +1051,7 @@
         <article class="skill-card">
           <h3>기타 · 도구</h3>
           <div class="skill-card__chips">
-            <span>C / C++ / C#</span><span>Git / SVN</span><span>RESTful API</span><span>Cursor (AI)</span><span>Flash AS</span>
+            <span>C / C++ / C#</span><span>Git / SVN</span><span>RESTful API</span><span>Cursor (AI)</span>
           </div>
         </article>
       </div>
@@ -1055,9 +1060,9 @@
     <!-- Experience -->
     <section class="section" id="experience">
       <div class="section__head reveal">
-        <span class="section__tag">Career</span>
-        <h2 class="section__title">경력 타임라인</h2>
-        <p class="section__sub">2009 → 현재 · 총 17년 · 회사를 클릭하면 해당 프로젝트로 이동합니다</p>
+        <span class="section__tag">Selected experience</span>
+        <h2 class="section__title">주요 경험</h2>
+        <p class="section__sub">최근 역할과 제품 중심으로 간결하게 정리했습니다</p>
       </div>
 
       <div class="timeline">
@@ -1084,7 +1089,7 @@
           <div class="tl-card">
             <div class="tl-card__top">
               <h3>풀무원</h3>
-              <span class="tl-date">2022.05 ~ 2023.06 · 1년 2개월</span>
+              <span class="tl-date">2022.05 ~ 2023.06</span>
             </div>
             <p class="tl-role">모바일개발팀 · 앱 개발/관리</p>
             <ul>
@@ -1102,7 +1107,7 @@
           <div class="tl-card">
             <div class="tl-card__top">
               <h3>GS ITM</h3>
-              <span class="tl-date">2018.08 ~ 2022.03 · 3년 8개월</span>
+              <span class="tl-date">2018.08 ~ 2022.03</span>
             </div>
             <p class="tl-role">과장/매니저 · 커머스 사업센터 (앱 파트 리더)</p>
             <ul>
@@ -1114,103 +1119,6 @@
           </div>
         </article>
 
-        <article class="tl-item reveal">
-          <div class="tl-dot"></div>
-          <div class="tl-card">
-            <div class="tl-card__top">
-              <h3>휴머스온</h3>
-              <span class="tl-date">2017.08 ~ 2018.08 · 1년 1개월</span>
-            </div>
-            <p class="tl-role">선임연구원 · 고객응대(CS)팀</p>
-            <ul>
-              <li><strong>Android·iOS 푸시 수신 SDK 개발</strong> — GCM·FCM·Baidu·APNS·Private 서버 푸시 대응</li>
-              <li>RESTful API 인증·통신, 고객사별 커스텀 디스플레이(영상·이미지 팝업) 제공</li>
-              <li>푸시 메시지 DB 저장 및 고객 요구 기반 Query 조회 기능</li>
-            </ul>
-            <div class="tl-tags"><span>Java</span><span>Objective-C</span><span>SDK</span><span>Push</span></div>
-          </div>
-        </article>
-
-        <article class="tl-item reveal">
-          <div class="tl-dot"></div>
-          <div class="tl-card">
-            <div class="tl-card__top">
-              <h3>아이리스아이디</h3>
-              <span class="tl-date">2016.02 ~ 2017.04 · 1년 3개월</span>
-            </div>
-            <p class="tl-role">주임/계장 · 소프트웨어팀</p>
-            <ul>
-              <li><strong>홍채인식 기기 연동 Android SDK 개발</strong> — USB 통신 기반 라이브 영상·눈 이미지 캡쳐</li>
-              <li>홍채 1:1 / 1:N 매칭, 사용자·홍채 데이터 DB 구축 및 SSL 보안</li>
-            </ul>
-            <div class="tl-tags"><span>Java</span><span>C / C#</span><span>JNI / NDK</span></div>
-          </div>
-        </article>
-
-        <article class="tl-item reveal">
-          <div class="tl-dot"></div>
-          <div class="tl-card">
-            <div class="tl-card__top">
-              <h3>나다텔</h3>
-              <span class="tl-date">2014.03 ~ 2016.02 · 2년</span>
-            </div>
-            <p class="tl-role">주임/계장 · 블랙박스 그룹</p>
-            <ul>
-              <li><strong>유라이브 블랙박스 Wifi 연동 앱</strong> (Android·iOS) — 실시간 감시, 원격 검색·설정·SD 포맷·펌웨어 업그레이드</li>
-              <li><strong>2채널·4채널 PC Viewer (C++)</strong> — 영상 재생, GPS 지도 위치 표기, 자동 업데이트</li>
-            </ul>
-            <div class="tl-tags"><span>Java</span><span>Objective-C</span><span>C++</span><span>Wifi/UDP</span></div>
-          </div>
-        </article>
-
-        <article class="tl-item reveal">
-          <div class="tl-dot"></div>
-          <div class="tl-card">
-            <div class="tl-card__top">
-              <h3>프리랜서 (티즈코리아)</h3>
-              <span class="tl-date">2013.09 ~ 2014.02 · 6개월</span>
-            </div>
-            <p class="tl-role">모바일 어플리케이션 개발</p>
-            <ul>
-              <li><strong>농촌진흥청 하이브리드 앱</strong> (iOS·Android) — 야콘 요리법·웰빙레시피, 웹 등록 레시피 연동</li>
-              <li><strong>사랑의 교회 iOS 앱</strong> — 트위터 연동, 영상·음성 재생, 월별 일정 서버 연동</li>
-            </ul>
-            <div class="tl-tags"><span>Java</span><span>Objective-C</span><span>Hybrid</span></div>
-          </div>
-        </article>
-
-        <article class="tl-item reveal">
-          <div class="tl-dot"></div>
-          <div class="tl-card">
-            <div class="tl-card__top">
-              <h3>디자인정글 (유믹스)</h3>
-              <span class="tl-date">2012.03 ~ 2013.08 · 1년 6개월</span>
-            </div>
-            <p class="tl-role">사원 · LG 안드로이드 Call 팀</p>
-            <ul>
-              <li><strong>LG 국내·북미·유럽향 Call / FMC Call / Call Settings</strong> — 사업자 요구사항별 기능·UI 수정 (멀티 SIM 등)</li>
-              <li><strong>LG Google TV Launcher 신규 개발</strong> — 폰↔IPTV 파일 전송 및 APK 설치, Remote Protocol 조사</li>
-            </ul>
-            <div class="tl-tags"><span>Java</span><span>Android 2.3 / 4.0</span></div>
-          </div>
-        </article>
-
-        <article class="tl-item reveal">
-          <div class="tl-dot"></div>
-          <div class="tl-card">
-            <div class="tl-card__top">
-              <h3>파인원 (커뮤니케이션즈)</h3>
-              <span class="tl-date">2009.12 ~ 2012.03 · 2년 4개월</span>
-            </div>
-            <p class="tl-role">연구원 · 모바일/플래시 사업부</p>
-            <ul>
-              <li><strong>삼성 Flash Mobile</strong> — 15여 종 피처폰 PhoneBook·Message 기능 (북미·유럽·아시아향)</li>
-              <li>LG IPTV IUI 플래시, Pineone Magazine 제작도구, LG U+ 스마트 멤버십</li>
-              <li><strong>SKT SoundCode</strong> — 음성 바코드 인식 (JNI·서울대 라이브러리 연동), <strong>LG tvG</strong> 국내 최초 구글 스마트 TV</li>
-            </ul>
-            <div class="tl-tags"><span>Flash AS</span><span>Java</span><span>JNI</span></div>
-          </div>
-        </article>
       </div>
     </section>
 
@@ -1219,7 +1127,7 @@
       <div class="section__head reveal">
         <span class="section__tag">Works</span>
         <h2 class="section__title">대표 프로젝트</h2>
-        <p class="section__sub">회사·언어로 필터링하고, 카드를 클릭하면 상세 화면을 볼 수 있습니다</p>
+        <p class="section__sub">역할보다 해결한 문제와 제품 결과를 중심으로 선별했습니다</p>
       </div>
       <div class="filters reveal" id="projFilters"></div>
       <div class="projects" id="projGrid"></div>
@@ -1237,22 +1145,18 @@
           <ul class="extra__list">
             <li><strong>한국기술교육대학교</strong> 멀티미디어공학과 졸업 <small>2001.03 ~ 2008.02</small></li>
             <li><strong>Fast Campus</strong> OpenCV 영상처리 · AR/VR <small>2017</small></li>
-            <li><strong>숭실대학교 전산원</strong> 어플리케이션 개발자 과정 <small>2009</small></li>
           </ul>
         </div>
         <div class="extra__col">
           <h3>자격증</h3>
           <ul class="extra__list">
-            <li><strong>게임그래픽전문가</strong> 한국산업인력공단 <small>2009.12</small></li>
             <li><strong>정보처리기사</strong> 한국산업인력공단 <small>2007.12</small></li>
-            <li><strong>정보기기운용기능사</strong> 한국산업인력공단 <small>2000.07</small></li>
           </ul>
         </div>
         <div class="extra__col">
-          <h3>어학 · 수상</h3>
+          <h3>어학</h3>
           <ul class="extra__list">
             <li><strong>JLPT 2급</strong> 일본어 (일상회화 가능) <small>2009.12</small></li>
-            <li><strong>문화부장관배 UCC 공모전</strong> 대전지역 예선 장려상 <small>2008</small></li>
           </ul>
         </div>
       </div>
@@ -1304,7 +1208,7 @@
   <script>
     // ---- Project data ----
     const PROJECTS = [
-      { title: '잡코리아 채용 앱 (Compose · 검색)', brand: 'JOBKOREA', brandColor: '#2b6fe3', companyName: '웍스피어', langs: ['Kotlin', 'Compose', 'Flutter'], company: '웍스피어 · 2023~', tags: ['Compose', 'Kotlin', 'Flutter'],
+      { title: '잡코리아 채용 앱 (Compose · 검색)', brand: 'JOBKOREA', brandColor: '#2b6fe3', companyName: '웍스피어', langs: ['Kotlin', 'Compose', 'Flutter'], company: '웍스피어', tags: ['Compose', 'Kotlin', 'Flutter'],
         summary: '기존 View 시스템 → Jetpack Compose 신규 전환, 검색 영역 Flutter 리뉴얼.',
         details: [
           '기존 View 시스템을 Jetpack Compose로 신규 전환하고 AI 추천 기능 구현.',
@@ -1317,60 +1221,47 @@
           '알바몬 앱 Android·iOS 담당.',
           '양 플랫폼 기능 수정·개선 및 신규 개발 진행 중.'
         ], images: ['albamon-1', 'albamon-2', 'albamon-3', 'albamon-4'] },
-      { title: '게임잡 (GameJob)', brand: 'GAMEJOB', brandColor: '#0fa3a8', companyName: '웍스피어', langs: ['Flutter'], company: '웍스피어 · 2023~', tags: ['Flutter', 'Dart', 'Riverpod'],
+      { title: '게임잡 (GameJob)', brand: 'GAMEJOB', brandColor: '#0fa3a8', companyName: '웍스피어', langs: ['Flutter'], company: '웍스피어', tags: ['Flutter', 'Dart', 'Riverpod'],
         summary: 'Flutter 기반 게임 업계 특화 채용 플랫폼 신규 개발·운영.',
         details: [
           'Flutter + Riverpod로 게임 업계 특화 채용 앱을 신규 개발.',
           '출시 후 사용자 피드백 반영, 신규 기능 추가 및 지속적인 성능 최적화.',
           '운영 이슈 모니터링과 신속한 장애 대응.'
         ], images: ['gamejob-1', 'gamejob-2', 'gamejob-3', 'gamejob-4'] },
-      { title: '사내 앱스토어', brand: 'Pulmuone', brandColor: '#4ca64c', companyName: '풀무원', langs: ['Flutter'], company: '풀무원 · 2022~2023', tags: ['Flutter', 'Firebase', 'Serverless'],
+      { title: '사내 앱스토어', brand: 'Pulmuone', brandColor: '#4ca64c', companyName: '풀무원', langs: ['Flutter'], company: '풀무원', tags: ['Flutter', 'Firebase', 'Serverless'],
         summary: '서버 없이 Firebase만으로 만든 크로스플랫폼 사내 앱스토어. 전 직원 사용.',
         details: [
           '서버 지원 없이 Firebase Realtime DB·Storage만으로 크로스플랫폼 사내 앱스토어를 직접 구상·제안·개발.',
           '앱 다운로드·설치·업데이트 프로세스를 자동화하여 운영 효율화.',
           '풀무원 지주사 및 계열사 전 직원이 사용 중.'
         ], images: ['appstore-1', 'appstore-2', 'appstore-3'] },
-      { title: 'GS Shop · GS Fresh', brand: 'GS SHOP·FRESH', brandColor: '#e2007a', companyName: 'GS ITM', langs: ['Kotlin', 'Java', 'Flutter'], company: 'GS ITM · 2018~2022 (파트 리더)', tags: ['Kotlin', 'Java', 'Flutter'],
+      { title: 'GS Shop · GS Fresh', brand: 'GS SHOP·FRESH', brandColor: '#e2007a', companyName: 'GS ITM', langs: ['Kotlin', 'Java', 'Flutter'], company: 'GS ITM · 파트 리더', tags: ['Kotlin', 'Java', 'Flutter'],
         summary: 'GS Shop Android 앱 운영 리더 + GS Fresh Flutter 전환 파트 리더.',
         details: [
           'GS Shop Android 앱 운영 파트 리더 — 코틀린 전환, RESTful 통신 기반 매장 배너 Flexible 노출 설계.',
           'GS Fresh Flutter 신규 개발 파트 리더 — 하이브리드 앱을 Flutter로 컨버전, 회원정보 마이그레이션·외부 라이브러리 채널링.',
           '장애 사전 인지·원인 제거 중심의 안정 운영.'
         ], images: ['gsshop-1', 'gsshop-2', 'gsshop-3'] },
-      { title: '멀티 플랫폼 푸시 SDK', brand: 'HUMUSON', brandColor: '#3949ab', logo: 'logo-humuson.jpg', companyName: '휴머스온', langs: ['Java', 'Objective-C'], company: '휴머스온 · 2017~2018', tags: ['Java', 'Objective-C', 'SDK'],
+      { title: '멀티 플랫폼 푸시 SDK', brand: 'HUMUSON', brandColor: '#3949ab', logo: 'logo-humuson.jpg', companyName: '휴머스온', langs: ['Java', 'Objective-C'], company: '휴머스온', tags: ['Java', 'Objective-C', 'SDK'],
         summary: 'GCM·FCM·Baidu·APNS·Private 서버를 아우르는 Android·iOS 푸시 수신 SDK.',
         details: [
           'GCM·FCM·Baidu·APNS·Private 서버 푸시를 모두 대응하는 수신 SDK 개발.',
           '고객사별 커스텀 디스플레이(영상·이미지 팝업) 제공.',
           '푸시 메시지 DB 저장 및 고객 요구 기반 Query 조회 기능 제공.'
         ], images: [] },
-      { title: '홍채인식 SDK', brand: 'IriTech', brandColor: '#00897b', logo: 'logo-irisid.png', companyName: '아이리스아이디', langs: ['Java', 'C/C++'], company: '아이리스아이디 · 2016~2017', tags: ['Java', 'JNI/NDK', 'Security'],
+      { title: '홍채인식 SDK', brand: 'IriTech', brandColor: '#00897b', logo: 'logo-irisid.png', companyName: '아이리스아이디', langs: ['Java', 'C/C++'], company: '아이리스아이디', tags: ['Java', 'JNI/NDK', 'Security'],
         summary: '홍채인식 기기 USB 연동 Android SDK. 1:1 / 1:N 매칭, SSL 보안 DB.',
         details: [
           '홍채인식 기기와 USB 통신으로 라이브 영상·눈 이미지를 캡쳐.',
           '홍채 1:1 / 1:N 매칭 결과 제공.',
           '사용자·홍채 데이터 DB 구축 및 SSL 통신 기반 보안.'
         ], images: ['iris-1', 'iris-2'] },
-      { title: '유라이브 블랙박스 뷰어', brand: 'NADATEL', brandColor: '#1565c0', companyName: '나다텔', langs: ['Java', 'Objective-C', 'C/C++'], company: '나다텔 · 2014~2016', tags: ['Android', 'iOS', 'C++'],
+      { title: '유라이브 블랙박스 뷰어', brand: 'NADATEL', brandColor: '#1565c0', companyName: '나다텔', langs: ['Java', 'Objective-C', 'C/C++'], company: '나다텔', tags: ['Android', 'iOS', 'C++'],
         summary: '블랙박스 Wifi 연동 앱(Android·iOS) + 2/4채널 PC Viewer.',
         details: [
           '유라이브 블랙박스 Wifi 연동 앱 — 실시간 감시, 원격 검색·설정·SD 포맷·펌웨어 업그레이드.',
           '2채널·4채널 PC Viewer(C++) — 영상 재생, GPS 정보 기반 지도 위치 표기, 자동 업데이트.'
-        ], images: ['blackbox-1', 'blackbox-2', 'blackbox-3'] },
-      { title: '농촌진흥청 · 사랑의 교회 앱', brand: 'Freelance', brandColor: '#5f6b7a', companyName: '프리랜서', langs: ['Java', 'Objective-C'], company: '프리랜서 · 2013~2014', tags: ['Android', 'iOS', 'Hybrid'],
-        summary: '농촌진흥청 하이브리드 앱과 사랑의 교회 iOS 앱 개발.',
-        details: [
-          '농촌진흥청 — 야콘 요리법·웰빙레시피 하이브리드 앱, 웹에서 등록한 레시피 연동.',
-          '사랑의 교회 iOS — 트위터 연동, 영상·음성 재생, 월별 일정 서버 연동.'
-        ], images: ['freelance-1', 'freelance-2', 'freelance-3', 'freelance-4'] },
-      { title: '초기 커리어 — LG · 삼성 · SKT', brand: 'LG · 삼성 · SKT', brandColor: '#455a64', companyName: '디자인정글·파인원', langs: ['Java', 'Flash'], company: '디자인정글 · 파인원 · 2009~2013', tags: ['Java', 'Flash AS', 'JNI'],
-        summary: 'LG Call/Google TV, 삼성 Flash Mobile, SKT SoundCode, LG tvG 등 피처폰·IPTV 시대 다수 프로젝트.',
-        details: [
-          'LG 국내·북미·유럽향 Call / FMC Call / Call Settings, LG Google TV Launcher 신규 개발.',
-          '삼성 Flash Mobile(15여 종 피처폰), Pineone Magazine 제작도구, LG U+ 스마트 멤버십.',
-          'SKT SoundCode(음성 바코드 · JNI), LG tvG — 국내 최초 구글 스마트 TV.'
-        ], images: ['legacy-call', 'legacy-tvlauncher-1', 'legacy-tvlauncher-2', 'legacy-samsung', 'legacy-magazine', 'legacy-membership', 'legacy-soundcode', 'legacy-tvg'] }
+        ], images: ['blackbox-1', 'blackbox-2', 'blackbox-3'] }
     ];
     const IMG = (n) => `images/${n}.jpg`;
 
@@ -1474,7 +1365,7 @@
     });
 
     // ---- Timeline company → matching projects ----
-    const TL_COMPANY = ['웍스피어', '풀무원', 'GS ITM', '휴머스온', '아이리스아이디', '나다텔', '프리랜서', '디자인정글·파인원', '디자인정글·파인원'];
+    const TL_COMPANY = ['웍스피어', '풀무원', 'GS ITM'];
     document.querySelectorAll('.timeline .tl-item').forEach((item, i) => {
       const company = TL_COMPANY[i];
       if (!company) return;
