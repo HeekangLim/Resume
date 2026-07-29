@@ -16,3 +16,13 @@ Android(Kotlin · Jetpack Compose)와 Flutter 크로스플랫폼을 중심으로
 
 별도 빌드 없이 정적 파일만으로 동작합니다.
 저장소 Settings → Pages → Branch를 선택하면 바로 배포됩니다.
+
+## 배포용 빌드
+
+Cloudflare Worker 호환 정적 빌드가 필요할 때는 아래 명령을 실행합니다.
+
+```bash
+npm run build
+```
+
+생성 결과는 `dist/client`(정적 파일)과 `dist/server`(정적 자산 진입점)에 저장됩니다.
