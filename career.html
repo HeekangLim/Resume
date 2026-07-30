@@ -185,6 +185,68 @@
     .proof h2 { margin-top: 9px; font-size: 1.02rem; font-weight: 820; letter-spacing: -0.025em; line-height: 1.4; }
     .proof p { margin-top: 8px; color: var(--ink-3); font-size: 0.79rem; line-height: 1.65; }
 
+    .resume-summary {
+      margin-top: 34px;
+      padding: 30px;
+      border: 1px solid rgba(34, 89, 214, 0.3);
+      border-radius: 20px;
+      background: linear-gradient(145deg, #fff 0%, #f6f9ff 100%);
+      box-shadow: 0 12px 36px rgba(34, 89, 214, 0.06);
+    }
+    .resume-summary__head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 22px;
+    }
+    .resume-summary__head h2 {
+      margin-top: 7px;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 870;
+      letter-spacing: -0.04em;
+      line-height: 1.2;
+    }
+    .resume-summary__head p { max-width: 660px; margin-top: 9px; color: var(--ink-3); font-size: 0.86rem; }
+    .copy-action {
+      display: inline-flex;
+      min-height: 38px;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--ink-2);
+      cursor: pointer;
+      font-size: 0.73rem;
+      font-weight: 760;
+      transition: border-color 0.16s, background 0.16s, color 0.16s;
+    }
+    .copy-action:hover { border-color: var(--accent); color: var(--accent); }
+    .copy-action--all { min-height: 42px; border-color: var(--accent); background: var(--accent); color: #fff; }
+    .copy-action--all:hover { background: var(--accent-dark); color: #fff; }
+    .copy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .copy-card {
+      min-width: 0;
+      padding: 21px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(255,255,255,0.92);
+    }
+    .copy-card--wide { grid-column: 1 / -1; }
+    .copy-card__head { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+    .copy-card h3 { font-size: 0.95rem; font-weight: 820; letter-spacing: -0.02em; }
+    .copy-content { margin-top: 14px; color: var(--ink-2); font-size: 0.84rem; line-height: 1.72; }
+    .copy-content p + p { margin-top: 7px; }
+    .copy-line { padding-left: 0.1em; }
+    .copy-status { min-height: 20px; margin-top: 12px; color: var(--success); font-size: 0.74rem; font-weight: 720; text-align: right; }
+
     .toc {
       display: flex;
       flex-wrap: wrap;
@@ -340,6 +402,12 @@
       .identity { display: grid; gap: 6px; }
       .proofs, .capabilities, .stack-grid { grid-template-columns: 1fr; }
       .proof, .capability, .stack { padding: 20px; }
+      .resume-summary { padding: 23px 19px; }
+      .resume-summary__head { flex-direction: column; }
+      .copy-action--all { width: 100%; }
+      .copy-grid { grid-template-columns: 1fr; }
+      .copy-card--wide { grid-column: auto; }
+      .copy-card { padding: 18px; }
       .toc { overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; }
       .toc::-webkit-scrollbar { display: none; }
       .toc a { flex: 0 0 auto; }
@@ -357,7 +425,7 @@
       @page { size: A4; margin: 12mm; }
       html { scroll-behavior: auto; }
       body { background: #fff; color: #000; font-size: 10.5pt; }
-      .topbar, .toc, .closing, .footer { display: none !important; }
+      .topbar, .toc, .closing, .footer, .copy-action, .copy-status { display: none !important; }
       .page { width: 100%; padding: 0; }
       .career-hero { padding: 0 0 9mm; border: 0; border-bottom: 1px solid #cfd4dc; border-radius: 0; box-shadow: none; }
       .career-hero::after { display: none; }
@@ -366,6 +434,9 @@
       .identity { margin-top: 5mm; padding-top: 4mm; }
       .proofs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3mm; margin-top: 5mm; }
       .proof, .capability, .stack, .credential { padding: 4mm; border-color: #d8dce3; break-inside: avoid; }
+      .resume-summary { margin-top: 5mm; padding: 5mm; border-color: #d8dce3; box-shadow: none; }
+      .copy-grid { gap: 2.5mm; margin-top: 4mm; }
+      .copy-card { padding: 4mm; border-color: #d8dce3; break-inside: avoid; }
       .section { padding-top: 9mm; }
       .section-heading { grid-template-columns: 30mm 1fr; gap: 6mm; margin-bottom: 4mm; break-after: avoid; }
       .section-heading h2 { font-size: 18pt; }
@@ -433,7 +504,63 @@
       </article>
     </section>
 
+    <section class="resume-summary" id="resume-summary" aria-labelledby="resumeSummaryTitle">
+      <div class="resume-summary__head">
+        <div>
+          <span class="eyebrow">01 · Resume-ready copy</span>
+          <h2 id="resumeSummaryTitle">이력서용 핵심 요약</h2>
+          <p>지원서의 자기소개·핵심 역량·경력 요약 항목에 바로 붙여 넣을 수 있도록 상세 내용을 압축했습니다.</p>
+        </div>
+        <button class="copy-action copy-action--all" id="copyAllButton" type="button">전체 문안 복사</button>
+      </div>
+
+      <div class="copy-grid">
+        <article class="copy-card" data-copy-section>
+          <div class="copy-card__head">
+            <h3>프로필 요약</h3>
+            <button class="copy-action" type="button" data-copy-target="resumeProfile">문안 복사</button>
+          </div>
+          <div class="copy-content" id="resumeProfile">
+            <p>Android(Kotlin·Java·Jetpack Compose)와 Flutter 기반의 모바일 앱 개발자로, 신규 앱 구축부터 기존 네이티브 구조의 크로스플랫폼 전환, 출시 후 운영·최적화까지 수행해 왔습니다. 현재 웍스피어에서 잡코리아·알바몬·게임잡 앱을 개발하고 있으며, 제품 상황에 맞춰 네이티브와 크로스플랫폼 기술을 선택합니다. 복잡한 연동 문제를 구조화하고 문서화해 팀과 공유하며, 안정적인 서비스 운영과 사용자 흐름 개선을 중요하게 생각합니다.</p>
+          </div>
+        </article>
+
+        <article class="copy-card" data-copy-section>
+          <div class="copy-card__head">
+            <h3>핵심 역량</h3>
+            <button class="copy-action" type="button" data-copy-target="resumeStrengths">문안 복사</button>
+          </div>
+          <div class="copy-content" id="resumeStrengths">
+            <p class="copy-line">• Android View의 Jetpack Compose 전환 및 네이티브 기능의 Flutter 마이그레이션</p>
+            <p class="copy-line">• Flutter 기반 신규 앱 설계·개발·출시 후 운영과 성능 최적화</p>
+            <p class="copy-line">• Android·iOS·Flutter 멀티 플랫폼 기능 개발과 상용 서비스 이슈 대응</p>
+            <p class="copy-line">• Firebase·Push·USB·Wifi/UDP·JNI/NDK 등 서버·장비·네이티브 연동</p>
+            <p class="copy-line">• 앱 파트 리딩, 기술 검토, 문제 해결 과정의 문서화와 팀 공유</p>
+          </div>
+        </article>
+
+        <article class="copy-card copy-card--wide" data-copy-section>
+          <div class="copy-card__head">
+            <h3>주요 경력 요약</h3>
+            <button class="copy-action" type="button" data-copy-target="resumeExperience">문안 복사</button>
+          </div>
+          <div class="copy-content" id="resumeExperience">
+            <p class="copy-line">• 웍스피어 (2023.06~현재) — 게임잡 Flutter 앱 신규 개발·운영, 잡코리아 Jetpack Compose 전환 및 검색 영역 Flutter 리뉴얼, 알바몬 Android·iOS 기능 개선</p>
+            <p class="copy-line">• 풀무원 (2022.05~2023.06) — Flutter·Firebase 기반 사내 앱스토어 직접 제안·개발, 자사·계열사 60여 개 앱 품질 및 운영 통합 관리</p>
+            <p class="copy-line">• GS ITM (2018.08~2022.03) — 앱 파트 리더로 GS Shop Android 운영·Kotlin 전환, GS Fresh Flutter 전환과 회원정보 마이그레이션 수행</p>
+            <p class="copy-line">• 휴머스온 (2017.08~2018.08) — Android·iOS 멀티 플랫폼 푸시 수신 SDK와 고객사별 메시지 표시·저장·조회 기능 개발</p>
+            <p class="copy-line">• 아이리스아이디 (2016.02~2017.04) — USB 기반 홍채인식 Android SDK, 1:1·1:N 매칭, 사용자·홍채 DB 및 SSL 보안 기능 개발</p>
+            <p class="copy-line">• 나다텔 (2014.03~2016.02) — 블랙박스 Wifi 연동 Android·iOS 앱과 C++ 기반 2·4채널 PC Viewer 개발</p>
+            <p class="copy-line">• 디자인정글 (2012.03~2013.08) — LG 글로벌향 Call·FMC Call·Call Settings 및 Google TV Launcher 개발</p>
+            <p class="copy-line">• 파인원 (2009.12~2012.03) — 삼성 Flash Mobile, LG IPTV·U+ 스마트 멤버십, SKT SoundCode JNI 연동, LG tvG 개발</p>
+          </div>
+        </article>
+      </div>
+      <p class="copy-status" id="copyStatus" role="status" aria-live="polite"></p>
+    </section>
+
     <nav class="toc" aria-label="경력기술서 목차">
+      <a href="#resume-summary">이력서용 요약</a>
       <a href="#capabilities">핵심 역량</a>
       <a href="#experience">회사별 경력</a>
       <a href="#stack">기술 스택</a>
@@ -443,7 +570,7 @@
 
     <section class="section" id="capabilities">
       <div class="section-heading">
-        <span class="section-heading__index">01 · Strengths</span>
+        <span class="section-heading__index">02 · Strengths</span>
         <div>
           <h2>핵심 역량</h2>
           <p>특정 프레임워크보다 제품의 현재 상태와 팀의 운영 조건을 먼저 보고, 필요한 구현 방법을 선택합니다.</p>
@@ -475,7 +602,7 @@
 
     <section class="section" id="experience">
       <div class="section-heading">
-        <span class="section-heading__index">02 · Experience</span>
+        <span class="section-heading__index">03 · Experience</span>
         <div>
           <h2>회사별 상세 경력</h2>
           <p>소속사에서 담당한 역할과 제품 기여를 최근 순으로 정리했습니다.</p>
@@ -792,7 +919,7 @@
 
     <section class="section" id="stack">
       <div class="section-heading">
-        <span class="section-heading__index">03 · Technology</span>
+        <span class="section-heading__index">04 · Technology</span>
         <div>
           <h2>기술 스택</h2>
           <p>실제 제품 개발과 운영에서 사용한 기술을 역할별로 정리했습니다.</p>
@@ -820,7 +947,7 @@
 
     <section class="section" id="credentials">
       <div class="section-heading">
-        <span class="section-heading__index">04 · Credentials</span>
+        <span class="section-heading__index">05 · Credentials</span>
         <div>
           <h2>교육 · 자격 · 어학</h2>
           <p>업무 기반이 되는 전공과 자격 정보를 간결하게 정리했습니다.</p>
@@ -860,6 +987,58 @@
 
   <script>
     document.getElementById('printButton').addEventListener('click', () => window.print());
+
+    const copyStatus = document.getElementById('copyStatus');
+    const setCopyStatus = (message) => {
+      copyStatus.textContent = message;
+      window.clearTimeout(setCopyStatus.timer);
+      setCopyStatus.timer = window.setTimeout(() => { copyStatus.textContent = ''; }, 2200);
+    };
+
+    const copyText = async (text) => {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        const copied = document.execCommand('copy');
+        textarea.remove();
+        if (!copied) throw new Error('copy failed');
+      }
+    };
+
+    const sectionText = (section) => {
+      const title = section.querySelector('h3').textContent.trim();
+      const content = section.querySelector('.copy-content').innerText.trim();
+      return `[${title}]\n${content}`;
+    };
+
+    document.querySelectorAll('[data-copy-target]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const target = document.getElementById(button.dataset.copyTarget);
+        try {
+          await copyText(target.innerText.trim());
+          setCopyStatus(`${button.closest('.copy-card').querySelector('h3').textContent} 문안을 복사했습니다.`);
+        } catch {
+          setCopyStatus('복사하지 못했습니다. 문안을 직접 선택해 복사해 주세요.');
+        }
+      });
+    });
+
+    document.getElementById('copyAllButton').addEventListener('click', async () => {
+      const text = [...document.querySelectorAll('[data-copy-section]')].map(sectionText).join('\n\n');
+      try {
+        await copyText(text);
+        setCopyStatus('이력서용 전체 문안을 복사했습니다.');
+      } catch {
+        setCopyStatus('복사하지 못했습니다. 문안을 직접 선택해 복사해 주세요.');
+      }
+    });
   </script>
 </body>
 </html>
