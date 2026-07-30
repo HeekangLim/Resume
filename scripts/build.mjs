@@ -10,6 +10,7 @@ await mkdir(serverRoot, { recursive: true });
 
 await Promise.all([
   copyFile(new URL("../index.html", import.meta.url), new URL("index.html", clientRoot)),
+  copyFile(new URL("../career.html", import.meta.url), new URL("career.html", clientRoot)),
   copyFile(new URL("../.nojekyll", import.meta.url), new URL(".nojekyll", clientRoot)),
   cp(new URL("../images/", import.meta.url), new URL("images/", clientRoot), {
     recursive: true,
@@ -39,8 +40,15 @@ await writeFile(
       });
     }
 
+    const url = new URL(request.url);
+    const pagePath = url.pathname === "/career" || url.pathname === "/career/"
+      ? "/career.html"
+      : url.pathname === "/" || url.pathname === "/index.html"
+        ? "/index.html"
+        : url.pathname;
+
     return env.ASSETS.fetch(
-      new Request(new URL("/index.html", request.url), {
+      new Request(new URL(pagePath, request.url), {
         method: request.method,
         headers: request.headers,
       }),
