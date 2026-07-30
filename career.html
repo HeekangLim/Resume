@@ -508,7 +508,7 @@
       <div class="resume-summary__head">
         <div>
           <span class="eyebrow">01 · Resume-ready copy</span>
-          <h2 id="resumeSummaryTitle">이력서용 핵심 요약</h2>
+          <h2 id="resumeSummaryTitle">핵심 요약</h2>
           <p>지원서의 자기소개·핵심 역량·경력 요약 항목에 바로 붙여 넣을 수 있도록 상세 내용을 압축했습니다.</p>
         </div>
         <button class="copy-action copy-action--all" id="copyAllButton" type="button">전체 문안 복사</button>
@@ -560,7 +560,7 @@
     </section>
 
     <nav class="toc" aria-label="경력기술서 목차">
-      <a href="#resume-summary">이력서용 요약</a>
+      <a href="#resume-summary">핵심 요약</a>
       <a href="#capabilities">핵심 역량</a>
       <a href="#experience">회사별 경력</a>
       <a href="#stack">기술 스택</a>
@@ -1034,7 +1034,7 @@
       const text = [...document.querySelectorAll('[data-copy-section]')].map(sectionText).join('\n\n');
       try {
         await copyText(text);
-        setCopyStatus('이력서용 전체 문안을 복사했습니다.');
+        setCopyStatus('전체 문안을 복사했습니다.');
       } catch {
         setCopyStatus('복사하지 못했습니다. 문안을 직접 선택해 복사해 주세요.');
       }

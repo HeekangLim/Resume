@@ -7,7 +7,7 @@ Android(Kotlin · Jetpack Compose)와 Flutter 크로스플랫폼을 중심으로
 ## 구성
 
 - `index.html` — 포트폴리오 메인 화면 (소개 · 기술 · 경력 · 프로젝트 · 교육/자격 · 연락처)
-- `career.html` — 회사·프로젝트별 상세 경력기술서 (이력서용 요약 복사 · 인쇄 · PDF 저장 지원)
+- `career.html` — 회사·프로젝트별 상세 경력기술서 (핵심 요약 복사 · 인쇄 · PDF 저장 지원)
 
 ## 보기
 
