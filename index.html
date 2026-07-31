@@ -4,43 +4,43 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>임희강 · 모바일 앱 개발자 포트폴리오</title>
-  <meta name="description" content="모바일 앱 개발자 임희강의 포트폴리오. Android(Kotlin/Jetpack Compose), Flutter 크로스플랫폼 제품 개발과 개선." />
-  <meta name="theme-color" content="#f5f7fa" />
+  <meta name="description" content="Android·Kotlin·Jetpack Compose·Flutter로 잡코리아·알바몬·게임잡 등 모바일 제품을 개발한 임희강의 포트폴리오." />
+  <meta name="theme-color" content="#f5f3ee" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ko_KR" />
   <meta property="og:title" content="임희강 · 모바일 앱 개발자 포트폴리오" />
-  <meta property="og:description" content="사용자 흐름을 이해하고 모바일 제품을 안정적으로 설계하고 개선합니다. Android · Kotlin · Jetpack Compose · Flutter." />
-  <meta property="og:url" content="https://heekanglim.github.io/Resume/" />
-  <meta property="og:image" content="https://heekanglim.github.io/Resume/images/og-portfolio-focus.png" />
+  <meta property="og:description" content="잡코리아 Compose 전환, 게임잡 Flutter 신규 구축 등 실제 모바일 제품 개발 기록을 정리했습니다." />
+  <meta property="og:url" content="https://lim-heekang-portfolio.worxphere.chatgpt.site/" />
+  <meta property="og:image" content="https://lim-heekang-portfolio.worxphere.chatgpt.site/images/og-portfolio-editorial.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="628" />
   <meta property="og:image:alt" content="임희강 모바일 앱 개발자 포트폴리오 미리보기" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="임희강 · 모바일 앱 개발자 포트폴리오" />
-  <meta name="twitter:description" content="사용자 흐름을 이해하고 모바일 제품을 안정적으로 설계하고 개선합니다." />
-  <meta name="twitter:image" content="https://heekanglim.github.io/Resume/images/og-portfolio-focus.png" />
+  <meta name="twitter:description" content="잡코리아 Compose 전환, 게임잡 Flutter 신규 구축 등 실제 모바일 제품 개발 기록." />
+  <meta name="twitter:image" content="https://lim-heekang-portfolio.worxphere.chatgpt.site/images/og-portfolio-editorial.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
   <style>
     :root {
-      --canvas: #f5f7fa;
+      --canvas: #f5f3ee;
       --surface: #ffffff;
-      --surface-subtle: #eef2f6;
-      --ink: #101828;
-      --ink-2: #344054;
-      --ink-3: #667085;
-      --line: #dfe4ea;
-      --line-strong: #c7d0dc;
-      --accent: #2259d6;
-      --accent-strong: #1746ae;
-      --accent-soft: #eaf0ff;
-      --success: #087a55;
-      --success-soft: #e6f5ef;
-      --radius-sm: 8px;
-      --radius: 14px;
-      --radius-lg: 22px;
+      --surface-subtle: #eee9e0;
+      --ink: #1c1a17;
+      --ink-2: #514d45;
+      --ink-3: #8c867b;
+      --line: #e6e0d4;
+      --line-strong: #d6cebf;
+      --accent: #9c3b26;
+      --accent-strong: #7e2e1f;
+      --accent-soft: #efe2dc;
+      --success: #9c3b26;
+      --success-soft: #efe2dc;
+      --radius-sm: 3px;
+      --radius: 8px;
+      --radius-lg: 10px;
       --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05);
       --shadow-lg: 0 24px 60px rgba(16, 24, 40, 0.18);
-      --maxw: 1200px;
+      --maxw: 1080px;
       --sans: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
     }
 
@@ -960,9 +960,10 @@
       .reveal { opacity: 1; transform: none; }
     }
   </style>
+  <link rel="stylesheet" href="editorial.css" />
   <noscript><style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 </head>
-<body>
+<body class="portfolio-page">
   <a class="skip-link" href="#main">본문으로 바로가기</a>
   <!-- Navigation -->
   <header class="nav" id="nav">
@@ -986,57 +987,45 @@
     <!-- Hero -->
     <section class="hero" id="hero">
       <div class="hero__inner reveal">
-        <p class="hero__badge">Mobile Application Engineer</p>
-        <p class="hero__name">임희강 <span>Lim Heekang</span></p>
-        <h1 class="hero__title"><span class="grad-text">사용자 흐름을 이해하고,</span> 모바일 제품을 완성합니다.</h1>
+        <p class="hero__badge">Portfolio · Mobile Application Engineer</p>
+        <h1 class="hero__title">
+          <span class="hero__title-name">임희강</span>
+          <span class="hero__title-statement">모바일 제품을 설계하고,<br />출시 이후까지 운영합니다.</span>
+        </h1>
         <p class="hero__subtitle">
-          Android (Kotlin · Jetpack Compose) &amp; Flutter 개발자
+          Android · Kotlin · Jetpack Compose · Flutter
         </p>
         <p class="hero__desc">
-          현재 <strong>웍스피어 (구 잡코리아)</strong>에서 <strong>잡코리아·알바몬·게임잡</strong> 채용 서비스 앱을 개발하고 있습니다.
-          네이티브와 크로스플랫폼 환경을 오가며 제품 전환, 신규 기능, 안정적인 운영에 집중합니다.
+          <strong>웍스피어 (구 잡코리아)</strong>에서 잡코리아·알바몬·게임잡 앱을 개발하고 있습니다.
+          Android View의 Compose 전환, 검색 영역의 Flutter 전환, 게임잡 Flutter 앱 신규 구축과 운영을 담당했습니다.
         </p>
         <div class="hero__cta">
           <a href="#projects" class="btn btn--primary">프로젝트 보기</a>
           <a href="career.html" class="btn btn--ghost">경력기술서 보기</a>
         </div>
-        <ul class="hero__focus" aria-label="업무 초점">
-          <li>네이티브와 크로스플랫폼</li>
-          <li>제품 전환과 안정적 운영</li>
-          <li>팀 협업과 문서화</li>
-        </ul>
       </div>
 
-      <div class="hero__device reveal">
-        <aside class="hero__panel" aria-label="현재 역할과 대표 성과">
-          <div class="hero__profile">
-            <img src="images/profile.jpg" alt="임희강 프로필 사진" />
-            <div class="hero__profile-copy">
-              <span class="status">재직 중</span>
-              <strong>웍스피어 (구 잡코리아) · 앱개발팀</strong>
-              <span>채용 서비스 모바일 앱 개발</span>
-            </div>
+      <figure class="hero__device reveal">
+        <div class="featured-work">
+          <div class="featured-work__meta" aria-hidden="true">
+            <span>Selected work / 01</span>
+            <span>2026</span>
           </div>
-          <div class="hero__panel-body">
-            <p class="hero__panel-label">Current products</p>
-            <div class="hero__products" aria-label="현재 담당 제품">
-              <span>잡코리아</span><span>알바몬</span><span>게임잡</span>
-            </div>
-            <p class="hero__panel-label">Selected impact</p>
-            <ul class="hero__proofs">
-              <li><span><strong>잡코리아 Compose 전환</strong>과 검색 영역 Flutter 리뉴얼</span></li>
-              <li><span><strong>게임잡 Flutter 신규 개발</strong> 및 출시 후 운영·최적화</span></li>
-              <li><span><strong>풀무원 사내 앱스토어</strong> 직접 제안·개발, 전 직원 사용</span></li>
-            </ul>
+          <div class="featured-work__screen">
+            <img src="images/jobkorea-1.jpg" alt="잡코리아 앱 AI 추천 홈 화면" />
           </div>
-        </aside>
-      </div>
+        </div>
+        <figcaption>
+          <strong>잡코리아</strong>
+          <span>Compose UI 전환 · 검색 영역 Flutter 리뉴얼</span>
+        </figcaption>
+      </figure>
     </section>
 
     <!-- About -->
     <section class="section" id="about">
       <div class="section__head reveal">
-        <span class="section__tag">About</span>
+        <span class="section__tag">01</span>
         <h2 class="section__title">소개</h2>
       </div>
       <div class="about reveal">
@@ -1051,28 +1040,22 @@
             <strong>Jetpack Compose UI</strong>로 진행했습니다.
           </p>
           <p>
-            최신 아키텍처에 민감하게 반응하고, <strong>AI를 통한 생산성 향상</strong>에도 큰 관심을 두고 실무에 적용합니다.
-            복잡한 업무는 문서화해 팀과 공유하고, 개발 과정에서 발견한 문제는 분석해 적극적으로 개선합니다.
+            새 기술 자체보다 <strong>제품과 팀에 맞는가</strong>를 먼저 봅니다.
+            기존 구조를 이해한 뒤 바꿀 범위를 정하고, 복잡한 업무와 해결 과정은 문서로 남겨 팀과 공유합니다.
           </p>
           <p>
             서로를 존중하는 팀워크를 중시하되, 필요할 때는 명확하게 의견을 제시합니다.
             누구와 함께 일하더라도 <strong>신뢰받는 동료</strong>가 되어 맡은 업무를 안정적으로 수행하는 것을 목표로 삼습니다.
           </p>
         </div>
-        <ul class="about__values">
-          <li>성취지향성</li>
-          <li>계획성</li>
-          <li>성실성 · 책임감</li>
-          <li>팀워크</li>
-        </ul>
       </div>
     </section>
 
     <!-- Skills -->
     <section class="section" id="skills">
       <div class="section__head reveal">
-        <span class="section__tag">Skills</span>
-        <h2 class="section__title">기술 스택</h2>
+        <span class="section__tag">02</span>
+        <h2 class="section__title">사용하는 기술</h2>
       </div>
       <div class="skills reveal">
         <article class="skill-card">
@@ -1105,9 +1088,9 @@
     <!-- Experience -->
     <section class="section" id="experience">
       <div class="section__head reveal">
-        <span class="section__tag">Selected experience</span>
-        <h2 class="section__title">주요 경험</h2>
-        <p class="section__sub">소속사별 역할과 주요 제품을 정확한 재직 기간과 함께 정리했습니다</p>
+        <span class="section__tag">03</span>
+        <h2 class="section__title">경력</h2>
+        <p class="section__sub">회사와 기간, 맡았던 제품을 간결하게 정리했습니다</p>
         <a href="career.html" class="btn btn--ghost section__action">상세 경력기술서 보기</a>
       </div>
 
@@ -1253,9 +1236,9 @@
     <!-- Projects -->
     <section class="section" id="projects">
       <div class="section__head reveal">
-        <span class="section__tag">Works</span>
-        <h2 class="section__title">대표 프로젝트</h2>
-        <p class="section__sub">현재 서비스부터 초기 모바일 프로젝트까지 제품 결과 중심으로 정리했습니다</p>
+        <span class="section__tag">04</span>
+        <h2 class="section__title">프로젝트 기록</h2>
+        <p class="section__sub">현재 서비스부터 초기 모바일 프로젝트까지 실제 작업 화면과 역할을 함께 정리했습니다</p>
       </div>
       <div class="filters reveal" id="projFilters"></div>
       <div class="projects" id="projGrid"></div>
@@ -1264,7 +1247,7 @@
     <!-- Education / Certs -->
     <section class="section" id="extra">
       <div class="section__head reveal">
-        <span class="section__tag">More</span>
+        <span class="section__tag">05</span>
         <h2 class="section__title">교육 · 자격 · 어학</h2>
       </div>
       <div class="extra reveal">
@@ -1293,9 +1276,9 @@
     <!-- Contact -->
     <section class="section section--contact" id="contact">
       <div class="contact reveal">
-        <span class="section__tag">Contact</span>
-        <h2 class="contact__title">함께 좋은 앱을 만들어요</h2>
-        <p class="contact__sub">새로운 기술과 신뢰받는 협업을 지향합니다. 편하게 연락 주세요.</p>
+        <span class="section__tag">06</span>
+        <h2 class="contact__title">연락</h2>
+        <p class="contact__sub">모바일 앱 개발과 협업에 관한 이야기는 아래 연락처로 보내 주세요.</p>
         <div class="contact__cards">
           <a class="contact__card" href="mailto:popolocrois180@gmail.com">
             <strong>Email</strong>
@@ -1430,7 +1413,7 @@
         media = `<div class="proj__media" style="--brand:${p.brandColor}"><span class="proj__wordmark">${p.brand}</span></div>`;
       }
       const tags = p.tags.map((t) => `<span>${t}</span>`).join('');
-      return `<article class="proj reveal" data-idx="${i}">
+      return `<article class="proj ${i < 3 ? 'proj--featured' : 'proj--archive'} reveal" data-idx="${i}">
         <button class="proj__trigger" type="button" aria-label="${p.title} 상세 보기">
           ${media}
           <span class="proj__body">
