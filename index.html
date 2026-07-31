@@ -727,6 +727,7 @@
     .contact__card small { color: var(--ink); font-size: 0.9rem; }
 
     .footer { padding: 38px 20px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 0.78rem; text-align: center; }
+    .mobile-page-tabs { display: none; }
     .to-top {
       position: fixed;
       right: 22px;
@@ -775,7 +776,7 @@
 
     @media (max-width: 767px) {
       html { scroll-padding-top: 72px; }
-      body { line-height: 1.6; }
+      body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); line-height: 1.6; }
       .nav { height: 62px; padding-inline: 18px; background: rgba(255,255,255,0.93); border-bottom-color: var(--line); backdrop-filter: blur(12px); }
       .nav__toggle { display: flex; }
       .nav__links {
@@ -908,7 +909,49 @@
       .car-next { right: -30px; }
       .modal__logo { min-height: 230px; }
       .imgview { padding: 18px; }
-      .to-top { right: 16px; bottom: 16px; }
+      .mobile-page-tabs {
+        position: fixed;
+        right: 14px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        left: 14px;
+        z-index: 96;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: auto;
+        max-width: 360px;
+        margin-inline: auto;
+        padding: 5px;
+        border: 1px solid rgba(199, 208, 220, 0.9);
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 12px 34px rgba(16, 24, 40, 0.2);
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.2s, transform 0.24s;
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+      }
+      .mobile-page-tabs.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(calc(100% + 24px));
+      }
+      .mobile-page-tabs a {
+        display: flex;
+        min-height: 42px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        color: var(--ink-3);
+        font-size: 0.82rem;
+        font-weight: 760;
+      }
+      .mobile-page-tabs a[aria-current="page"] {
+        background: var(--ink);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(16, 24, 40, 0.18);
+      }
+      .to-top { right: 16px; bottom: calc(84px + env(safe-area-inset-bottom)); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1270,6 +1313,11 @@
       </div>
     </section>
   </main>
+
+  <nav class="mobile-page-tabs" id="mobilePageTabs" aria-label="포트폴리오 화면 전환">
+    <a href="index.html" aria-current="page">포트폴리오</a>
+    <a href="career.html">경력기술서</a>
+  </nav>
 
   <footer class="footer">
     <p>© 2026 임희강 · Lim Heekang. Mobile App Developer.</p>
@@ -1755,6 +1803,34 @@
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+
+    // ---- Mobile page switcher: hide while scrolling down, reveal while scrolling up ----
+    const mobilePageTabs = document.getElementById('mobilePageTabs');
+    let lastPageTabsScrollY = Math.max(0, window.scrollY);
+    let pageTabsTicking = false;
+    const syncMobilePageTabs = () => {
+      const currentY = Math.max(0, window.scrollY);
+      const delta = currentY - lastPageTabsScrollY;
+
+      if (currentY < 80) {
+        mobilePageTabs.classList.remove('is-hidden');
+        lastPageTabsScrollY = currentY;
+      } else if (delta > 8) {
+        mobilePageTabs.classList.add('is-hidden');
+        lastPageTabsScrollY = currentY;
+      } else if (delta < -8) {
+        mobilePageTabs.classList.remove('is-hidden');
+        lastPageTabsScrollY = currentY;
+      }
+
+      pageTabsTicking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (pageTabsTicking) return;
+      window.requestAnimationFrame(syncMobilePageTabs);
+      pageTabsTicking = true;
+    }, { passive: true });
+    mobilePageTabs.addEventListener('focusin', () => mobilePageTabs.classList.remove('is-hidden'));
 
     const sectionLinks = [...navLinks.querySelectorAll('a')];
     const sectionObserver = new IntersectionObserver((entries) => {

@@ -384,6 +384,7 @@
     .closing .button:hover { border-color: #fff; }
 
     .footer { padding: 32px 20px 42px; color: var(--ink-3); font-size: 0.75rem; text-align: center; }
+    .mobile-page-tabs { display: none; }
 
     @media (max-width: 860px) {
       .proofs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -421,11 +422,62 @@
       .closing { grid-template-columns: 1fr; margin-top: 58px; padding: 27px 22px; }
     }
 
+    @media (max-width: 767px) {
+      body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+      .mobile-page-tabs {
+        position: fixed;
+        right: 14px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        left: 14px;
+        z-index: 48;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: auto;
+        max-width: 360px;
+        margin-inline: auto;
+        padding: 5px;
+        border: 1px solid rgba(205, 213, 223, 0.9);
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 12px 34px rgba(16, 24, 40, 0.2);
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.2s, transform 0.24s;
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+      }
+      .mobile-page-tabs.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(calc(100% + 24px));
+      }
+      .mobile-page-tabs a {
+        display: flex;
+        min-height: 42px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        color: var(--ink-3);
+        font-size: 0.82rem;
+        font-weight: 760;
+      }
+      .mobile-page-tabs a[aria-current="page"] {
+        background: var(--ink);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(16, 24, 40, 0.18);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .mobile-page-tabs { transition: none; }
+    }
+
     @media print {
       @page { size: A4; margin: 12mm; }
       html { scroll-behavior: auto; }
       body { background: #fff; color: #000; font-size: 10.5pt; }
-      .topbar, .toc, .closing, .footer, .copy-action, .copy-status { display: none !important; }
+      .topbar, .toc, .closing, .footer, .copy-action, .copy-status, .mobile-page-tabs { display: none !important; }
       .page { width: 100%; padding: 0; }
       .career-hero { padding: 0 0 9mm; border: 0; border-bottom: 1px solid #cfd4dc; border-radius: 0; box-shadow: none; }
       .career-hero::after { display: none; }
@@ -981,6 +1033,11 @@
     </section>
   </main>
 
+  <nav class="mobile-page-tabs" id="mobilePageTabs" aria-label="포트폴리오 화면 전환">
+    <a href="index.html">포트폴리오</a>
+    <a href="career.html" aria-current="page">경력기술서</a>
+  </nav>
+
   <footer class="footer">
     <p>© 2026 임희강 · Lim Heekang. Mobile Application Engineer.</p>
   </footer>
@@ -1039,6 +1096,33 @@
         setCopyStatus('복사하지 못했습니다. 문안을 직접 선택해 복사해 주세요.');
       }
     });
+
+    const mobilePageTabs = document.getElementById('mobilePageTabs');
+    let lastPageTabsScrollY = Math.max(0, window.scrollY);
+    let pageTabsTicking = false;
+    const syncMobilePageTabs = () => {
+      const currentY = Math.max(0, window.scrollY);
+      const delta = currentY - lastPageTabsScrollY;
+
+      if (currentY < 80) {
+        mobilePageTabs.classList.remove('is-hidden');
+        lastPageTabsScrollY = currentY;
+      } else if (delta > 8) {
+        mobilePageTabs.classList.add('is-hidden');
+        lastPageTabsScrollY = currentY;
+      } else if (delta < -8) {
+        mobilePageTabs.classList.remove('is-hidden');
+        lastPageTabsScrollY = currentY;
+      }
+
+      pageTabsTicking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (pageTabsTicking) return;
+      window.requestAnimationFrame(syncMobilePageTabs);
+      pageTabsTicking = true;
+    }, { passive: true });
+    mobilePageTabs.addEventListener('focusin', () => mobilePageTabs.classList.remove('is-hidden'));
   </script>
 </body>
 </html>
